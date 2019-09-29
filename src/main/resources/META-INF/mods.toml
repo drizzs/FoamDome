@@ -9,7 +9,7 @@ issueTrackerURL="http://my.issue.tracker/"
 
 modId="foamdome"
 
-version="${file.jarVersion}"
+version="${0.0.1}"
 
 
 displayName="Foam Dome"
@@ -25,6 +25,6 @@ credits="DivineAspect for the Idea"
 authors="Drizzs"
 
 description='''
-
+This makes domes underwater
 
 '''

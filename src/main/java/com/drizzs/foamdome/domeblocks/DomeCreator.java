@@ -22,15 +22,19 @@ import java.util.Random;
 
 public class DomeCreator extends Block {
 
-    public DomeCreator(Properties properties) {
+    private final int size;
+
+    public DomeCreator(Properties properties, int size)
+    {
         super(properties);
+        this.size = size;
     }
 
     @Override
     @Deprecated
     public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
 
-        int size = 5;
+        int size = this.size;
 
         for(int i = -size; i <= size; i++){
             for(int k = -size; k <= size; k++){
