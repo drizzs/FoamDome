@@ -4,6 +4,7 @@ import com.drizzs.foamdome.FoamDome;
 import com.drizzs.foamdome.domeblocks.*;
 import com.drizzs.foamdome.util.FoamDomeGroup;
 import net.minecraft.block.Block;
+import net.minecraft.block.GlassBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
@@ -22,7 +23,7 @@ public class DomeBlocks
     public static Block notfoam;
     public static Block glassdomecreator;
     public static Block glassfoam;
-
+    public static Block glass;
 
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> event)
@@ -32,6 +33,7 @@ public class DomeBlocks
         notfoam = registerBlock(new NotFoam((Block.Properties.create(Material.ROCK).hardnessAndResistance(15).sound(SoundType.STONE))), "notfoam");
         glassdomecreator = registerBlock(new GlassDomeCreator((Block.Properties.create(Material.IRON).hardnessAndResistance(6).sound(SoundType.METAL))), "glassdomecreator");
         glassfoam = registerBlock(new GlassFoam((Block.Properties.create(Material.SNOW).tickRandomly().hardnessAndResistance(1.9F).sound(SoundType.SNOW))), "glassfoam");
+        glass = registerBlock(new GlassBlock((Block.Properties.create(Material.ROCK).hardnessAndResistance(15).sound(SoundType.STONE))), "glass");
 
     }
 
