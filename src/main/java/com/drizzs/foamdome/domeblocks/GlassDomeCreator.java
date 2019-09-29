@@ -26,7 +26,7 @@ public class GlassDomeCreator extends Block {
         for(int i = -size; i <= size; i++){
             for(int k = -size; k <= size; k++){
                 for(int j = -size; j <= size; j++){
-                    if(((i*i) + (j*j) + (k*k)/2) - size < size + 1) {
+                    if((i*i) + (j*j) + (k*k) < (size * size) + size + 1) {
                         BlockPos posAll = pos.add(i, j, k);
                         if (world.getBlockState(posAll).getBlock().isIn(FoamTags.UNDERWATER)){
                             world.setBlockState(posAll, DomeBlocks.glassfoam.getDefaultState());
