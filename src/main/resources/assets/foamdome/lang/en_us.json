@@ -1,0 +1,8 @@
+{
+  "block.foamdome.domecreator": "Obsidian Foam Mekanism",
+  "block.foamdome.glassdomecreator": "Glass Foam Mekanism",
+  "block.foamdome.foam": "Foam",
+  "block.foamdome.glassfoam": "Glass Foam",
+  "block.foamdome.notfoam": "Instant Obsidian",
+  "itemGroup.foamdome": "Foam Dome"
+}

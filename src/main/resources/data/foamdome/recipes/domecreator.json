@@ -1,19 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
+    "LLL",
     "#E#",
     "#G#"
   ],
   "key": {
     "#": {
-      "item": "minecraft:iron_ingot"
+      "item": "minecraft:cobblestone"
     },
     "G": {
-      "item": "minecraft:gold_ingot"
+      "item": "minecraft:slime_ball"
     },
     "E": {
-      "item": "minecraft:ender_pearl"
+      "item": "minecraft:kelp"
+    },
+    "L": {
+      "tag": "minecraft:logs"
     }
   },
   "result": {

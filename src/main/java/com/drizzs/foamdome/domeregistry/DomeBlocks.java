@@ -9,6 +9,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,11 +28,11 @@ public class DomeBlocks
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> event)
     {
-        domecreator = registerBlock(new DomeCreator((Block.Properties.create(Material.IRON).hardnessAndResistance(6).sound(SoundType.METAL))), "domecreator");
-        foam = registerBlock(new Foam((Block.Properties.create(Material.SNOW).noDrops().tickRandomly().hardnessAndResistance(1.9F).sound(SoundType.SNOW))), "foam");
-        notfoam = registerBlock(new NotFoam((Block.Properties.create(Material.ROCK).hardnessAndResistance(15).sound(SoundType.STONE))), "notfoam");
-        glassdomecreator = registerBlock(new GlassDomeCreator((Block.Properties.create(Material.IRON).hardnessAndResistance(6).sound(SoundType.METAL))), "glassdomecreator");
-        glassfoam = registerBlock(new GlassFoam((Block.Properties.create(Material.SNOW).noDrops().tickRandomly().hardnessAndResistance(1.9F).sound(SoundType.SNOW))), "glassfoam");
+        domecreator = registerBlock(new DomeCreator((Block.Properties.create(Material.IRON).harvestTool(ToolType.PICKAXE).hardnessAndResistance(6).sound(SoundType.METAL))), "domecreator");
+        foam = registerBlock(new Foam((Block.Properties.create(Material.SNOW).noDrops().tickRandomly().hardnessAndResistance(0).sound(SoundType.SNOW))), "foam");
+        notfoam = registerBlock(new NotFoam((Block.Properties.create(Material.ROCK).harvestTool(ToolType.PICKAXE).hardnessAndResistance(30.0F, 600.0F).sound(SoundType.STONE))), "notfoam");
+        glassdomecreator = registerBlock(new GlassDomeCreator((Block.Properties.create(Material.IRON).harvestTool(ToolType.PICKAXE).hardnessAndResistance(6).sound(SoundType.METAL))), "glassdomecreator");
+        glassfoam = registerBlock(new GlassFoam((Block.Properties.create(Material.SNOW).noDrops().tickRandomly().hardnessAndResistance(0).sound(SoundType.SNOW))), "glassfoam");
 
     }
 
