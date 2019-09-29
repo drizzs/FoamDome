@@ -12,7 +12,7 @@ public class FoamTags {
 
 
 
-    public static final Tag<Block> UNDERWATER = new BlockTags.Wrapper(new ResourceLocation("testmod:blocks/underwater"));
+    public static final Tag<Block> UNDERWATER = new BlockTags.Wrapper(new ResourceLocation("foamdome:underwater"));
 
 
 

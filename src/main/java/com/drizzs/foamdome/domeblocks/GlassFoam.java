@@ -6,16 +6,14 @@ import com.drizzs.foamdome.util.FoamTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class Foam extends Block {
+public class GlassFoam extends Block {
 
-    public Foam(Properties properties) {
+    public GlassFoam(Properties properties) {
         super(properties);
     }
 
@@ -35,7 +33,7 @@ public class Foam extends Block {
                     || world.getBlockState(south).getBlock().isIn(FoamTags.UNDERWATER)  || world.getBlockState(north).getBlock().isIn(FoamTags.UNDERWATER)
                     || world.getBlockState(up).getBlock().isIn(FoamTags.UNDERWATER) || world.getBlockState(down).getBlock().isIn(FoamTags.UNDERWATER) )
            {
-                world.setBlockState(pos, DomeBlocks.notfoam.getDefaultState());
+                world.setBlockState(pos, Blocks.GLASS.getDefaultState());
             } else {
                 world.destroyBlock(pos,true);
             }
