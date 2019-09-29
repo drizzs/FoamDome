@@ -23,17 +23,15 @@ public class DomeBlocks
     public static Block notfoam;
     public static Block glassdomecreator;
     public static Block glassfoam;
-    public static Block glass;
 
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> event)
     {
         domecreator = registerBlock(new DomeCreator((Block.Properties.create(Material.IRON).hardnessAndResistance(6).sound(SoundType.METAL))), "domecreator");
-        foam = registerBlock(new Foam((Block.Properties.create(Material.SNOW).tickRandomly().hardnessAndResistance(1.9F).sound(SoundType.SNOW))), "foam");
+        foam = registerBlock(new Foam((Block.Properties.create(Material.SNOW).noDrops().tickRandomly().hardnessAndResistance(1.9F).sound(SoundType.SNOW))), "foam");
         notfoam = registerBlock(new NotFoam((Block.Properties.create(Material.ROCK).hardnessAndResistance(15).sound(SoundType.STONE))), "notfoam");
         glassdomecreator = registerBlock(new GlassDomeCreator((Block.Properties.create(Material.IRON).hardnessAndResistance(6).sound(SoundType.METAL))), "glassdomecreator");
-        glassfoam = registerBlock(new GlassFoam((Block.Properties.create(Material.SNOW).tickRandomly().hardnessAndResistance(1.9F).sound(SoundType.SNOW))), "glassfoam");
-        glass = registerBlock(new GlassBlock((Block.Properties.create(Material.ROCK).hardnessAndResistance(15).sound(SoundType.STONE))), "glass");
+        glassfoam = registerBlock(new GlassFoam((Block.Properties.create(Material.SNOW).noDrops().tickRandomly().hardnessAndResistance(1.9F).sound(SoundType.SNOW))), "glassfoam");
 
     }
 
