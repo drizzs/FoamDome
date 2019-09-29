@@ -28,7 +28,7 @@ public class DomeBlocks
     public static void registerBlocks(final RegistryEvent.Register<Block> event)
     {
         domecreator = registerBlock(new DomeCreator((Block.Properties.create(Material.IRON).hardnessAndResistance(6).sound(SoundType.METAL))), "domecreator");
-        foam = registerBlock(new Foam((Block.Properties.create(Material.SNOW).hardnessAndResistance(1.9F).sound(SoundType.SNOW))), "foam");
+        foam = registerBlock(new Foam((Block.Properties.create(Material.SNOW).tickRandomly().hardnessAndResistance(1.9F).sound(SoundType.SNOW))), "foam");
         notfoam = registerBlock(new NotFoam((Block.Properties.create(Material.ROCK).hardnessAndResistance(15).sound(SoundType.STONE))), "notfoam");
 
     }
