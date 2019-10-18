@@ -1,7 +1,7 @@
 {
   "variants": {
     "": [
-      { "model": "foamdome:block/glassdomecreator" }
+      { "model": "foamdome:block/gravitydomecreator" }
     ]
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "foamdome:blocks/glassdomecreator"
+    "all": "foamdome:blocks/gravitydomecreator"
   }
 }
