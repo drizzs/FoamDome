@@ -1,14 +1,12 @@
 package com.drizzs.foamdome.domeblocks;
 
 
-import com.drizzs.foamdome.domeregistry.DomeBlocks;
-import com.drizzs.foamdome.util.FoamTags;
+import com.drizzs.foamdome.util.DomeLib;
+import com.drizzs.foamdome.util.DomeRegistry;
+import com.drizzs.foamdome.util.DomeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -31,11 +29,11 @@ public class Foam extends Block {
         BlockPos west = pos.west();
         int i = random.nextInt(1);
         if(i == 0) {
-            if (world.getBlockState(east).getBlock().isIn(FoamTags.UNDERWATER) || world.getBlockState(west).getBlock().isIn(FoamTags.UNDERWATER)
-                    || world.getBlockState(south).getBlock().isIn(FoamTags.UNDERWATER)  || world.getBlockState(north).getBlock().isIn(FoamTags.UNDERWATER)
-                    || world.getBlockState(up).getBlock().isIn(FoamTags.UNDERWATER) || world.getBlockState(down).getBlock().isIn(FoamTags.UNDERWATER) )
+            if (world.getBlockState(east).getBlock().isIn(DomeTags.UNDERWATER) || world.getBlockState(west).getBlock().isIn(DomeTags.UNDERWATER)
+                    || world.getBlockState(south).getBlock().isIn(DomeTags.UNDERWATER)  || world.getBlockState(north).getBlock().isIn(DomeTags.UNDERWATER)
+                    || world.getBlockState(up).getBlock().isIn(DomeTags.UNDERWATER) || world.getBlockState(down).getBlock().isIn(DomeTags.UNDERWATER) )
            {
-                world.setBlockState(pos, DomeBlocks.notfoam.getDefaultState());
+                world.setBlockState(pos, DomeLib.notfoam.getDefaultState());
             } else {
                 world.destroyBlock(pos,true);
             }

@@ -10,9 +10,9 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class GlassFoam extends Block {
+public class GravityFoam extends Block {
 
-    public GlassFoam(Properties properties) {
+    public GravityFoam(Properties properties) {
         super(properties);
     }
 

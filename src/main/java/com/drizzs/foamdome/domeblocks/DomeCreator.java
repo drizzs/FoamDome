@@ -1,55 +1,59 @@
 package com.drizzs.foamdome.domeblocks;
 
 
-import com.drizzs.foamdome.domeregistry.DomeBlocks;
-import com.drizzs.foamdome.util.FoamTags;
-import com.google.common.collect.Lists;
+import com.drizzs.foamdome.util.DomeLib;
+import com.drizzs.foamdome.util.DomeConfigs;
+import com.drizzs.foamdome.util.DomeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.List;
-import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DomeCreator extends Block {
 
     private final int size;
 
-    public DomeCreator(Properties properties, int size)
+    public DomeCreator(Properties properties)
     {
         super(properties);
-        this.size = size;
+        this.size = DomeConfigs.COMMON.DOMESIZE.get();
     }
 
     @Override
     @Deprecated
     public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                foamActivation(world, pos);
+            }
+        }, 4000);
+        return true;
+    }
 
-        int size = this.size;
-
+    private void foamActivation(World world, BlockPos pos){
         for(int i = -size; i <= size; i++){
             for(int k = -size; k <= size; k++){
                 for(int j = -size; j <= size; j++){
                     if((i*i) + (j*j) + (k*k) < (size * size) + size + 1) {
                         BlockPos posAll = pos.add(i, j, k);
-                        if (world.getBlockState(posAll).getBlock().isIn(FoamTags.UNDERWATER)){
-                            world.setBlockState(posAll, DomeBlocks.foam.getDefaultState());
+                        BlockState targetState = world.getBlockState(posAll);
+                        Block targetBlock = targetState.getBlock();
+                        if (targetBlock.isIn(DomeTags.UNDERWATER ) && !targetState.isSolid()){
+                            world.setBlockState(posAll, DomeLib.foam.getDefaultState());
                         }
                     }
 
                 }
             }
         }
-        return true;
+
     }
 
 
