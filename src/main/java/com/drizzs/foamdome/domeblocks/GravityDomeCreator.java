@@ -62,7 +62,7 @@ public class GravityDomeCreator extends FallingBlock {
                         BlockState targetState = world.getBlockState(posAll);
                         Block targetBlock = targetState.getBlock();
                         if (targetBlock.isIn(DomeTags.GRAVITYDOME) && !targetState.isSolid()) {
-                            world.setBlockState(posAll, DomeLib.foam.getDefaultState());
+                            world.setBlockState(posAll, DomeLib.gravityfoam.getDefaultState());
                         }
                     }
 
