@@ -31,8 +31,7 @@ public class GravityDomeCreator extends FallingBlock {
 
     private final int size;
 
-    public GravityDomeCreator(Properties properties)
-    {
+    public GravityDomeCreator(Properties properties) {
         super(properties);
         this.size = DomeConfigs.COMMON.LAVADOMESIZE.get();
     }
@@ -49,6 +48,7 @@ public class GravityDomeCreator extends FallingBlock {
                 foamActivation(world, pos);
             }
         }, 4000);
+
         return true;
     }
 
@@ -58,7 +58,7 @@ public class GravityDomeCreator extends FallingBlock {
             for (int k = -size; k <= size; k++) {
                 for (int j = -size; j <= size; j++) {
                     if ((i * i) + (j * j) + (k * k) < (size * size) + size + 1) {
-                        BlockPos posAll = pos.add(i, j - (size/2) - 2, k);
+                        BlockPos posAll = pos.add(i, j, k);
                         BlockState targetState = world.getBlockState(posAll);
                         Block targetBlock = targetState.getBlock();
                         if (targetBlock.isIn(DomeTags.GRAVITYDOME) && !targetState.isSolid()) {
@@ -71,15 +71,37 @@ public class GravityDomeCreator extends FallingBlock {
         }
     }
 
+
     @Override
-    public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
+    public void tick(BlockState state, World world, BlockPos pos, Random random) {
+        int size2 = this.size - 1;
+        for (int i = -size2; i <= size2; i++) {
+            for (int k = -size2; k <= size2; k++) {
+                for (int j = -size2; j <= size2; j++) {
+                    BlockPos posAll = pos.add(i, j, k);
+                    BlockState targetState = world.getBlockState(posAll);
+                    Block targetBlock = targetState.getBlock();
+                    if(targetBlock == DomeLib.gravityfoam){
+                        int rand = random.nextInt(200);
+                        if(rand == 0){
+                            world.destroyBlock(posAll, false);
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+        }
 
     }
 
     private void checkFallable(World worldIn, BlockPos pos) {
         if (worldIn.isAirBlock(pos.down()) || canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
             if (!worldIn.isRemote) {
-                FallingBlockEntity fallingblockentity = new FallingBlockEntity(worldIn, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, worldIn.getBlockState(pos));
+                FallingBlockEntity fallingblockentity = new FallingBlockEntity(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, worldIn.getBlockState(pos));
                 this.onStartFalling(fallingblockentity);
                 worldIn.addEntity(fallingblockentity);
             }

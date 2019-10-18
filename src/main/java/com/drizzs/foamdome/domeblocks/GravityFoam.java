@@ -16,7 +16,6 @@ public class GravityFoam extends Block {
         super(properties);
     }
 
-
     @Override
     public void tick(BlockState state, World world, BlockPos pos, Random random)
     {
