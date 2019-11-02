@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "foamdome:blocks/airdomecreatortop",
+    "side": "foamdome:blocks/airdomecreatorside"
+  }
+}

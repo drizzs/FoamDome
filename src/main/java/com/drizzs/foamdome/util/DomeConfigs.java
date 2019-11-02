@@ -17,7 +17,8 @@ public class DomeConfigs
 
         public final ForgeConfigSpec.IntValue DOMESIZE;
         public final ForgeConfigSpec.IntValue GLASSDOMESIZE;
-        public final ForgeConfigSpec.IntValue LAVADOMESIZE;
+        public final ForgeConfigSpec.IntValue GRAVITYDOMESIZE;
+        public final ForgeConfigSpec.IntValue ACIDDOMESIZE;
 
         CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("Obsidian Dome Size");
@@ -26,10 +27,13 @@ public class DomeConfigs
                     .defineInRange("DomeSize", 5, 3, 15);
             GLASSDOMESIZE = builder
                     .comment("This Controls the size of the Glass version of FoamDomes Dome Creators. Changing this may affect the shape of the sphere! Perfect Sphere is 5")
-                    .defineInRange("DomeSize", 5, 3, 15);
-            LAVADOMESIZE = builder
-                    .comment("This Controls the size of the Lava version of FoamDomes Dome Creators. Changing this may affect the shape of the sphere! Perfect Sphere is 5")
-                    .defineInRange("DomeSize", 5, 3, 15);
+                    .defineInRange("GlassDomeSize", 5, 3, 15);
+            GRAVITYDOMESIZE = builder
+                    .comment("This Controls the size of the Gravity version of FoamDomes Dome Creators. Changing this may affect the shape of the sphere! Perfect Sphere is 5")
+                    .defineInRange("GravityDomeSize", 5, 3, 15);
+            ACIDDOMESIZE = builder
+                    .comment("This Controls the size of the Acid version of FoamDomes Dome Creators. Changing this may affect the shape of the sphere! Perfect Sphere is 5")
+                    .defineInRange("AcidDomeSize", 5, 3, 15);
             builder.pop();
 
         }

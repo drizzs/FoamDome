@@ -1,6 +1,7 @@
 {
-  "parent": "block/cube_all",
+  "parent": "block/cube_column",
   "textures": {
-    "all": "foamdome:blocks/glassdomecreator"
+    "end": "foamdome:blocks/domecreatortop",
+    "side": "foamdome:blocks/domecreatorside"
   }
 }

@@ -26,6 +26,24 @@ public class DomeLib {
     @ObjectHolder("foamdome:gravitydomecreator")
     public static Block gravitydomecreator;
 
+    @ObjectHolder("foamdome:acidfoam")
+    public static Block acidfoam;
+
+    @ObjectHolder("foamdome:aciddomecreator")
+    public static Block aciddomecreator;
+
+    @ObjectHolder("foamdome:acidtunnelcreator")
+    public static Block acidtunnelcreator;
+
+    @ObjectHolder("foamdome:airtunnelcreator")
+    public static Block airtunnelcreator;
+
+    @ObjectHolder("foamdome:tunnelcreator")
+    public static Block tunnelcreator;
+
+    @ObjectHolder("foamdome:glasstunnelcreator")
+    public static Block glasstunnelcreator;
+
     @ObjectHolder("foamdome:foamicon")
     public static Item foamicon;
 
