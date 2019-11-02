@@ -2,7 +2,6 @@ package com.drizzs.foamdome.domeblocks;
 
 
 import com.drizzs.foamdome.util.DomeConfigs;
-import com.drizzs.foamdome.util.DomeLib;
 import com.drizzs.foamdome.util.DomeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

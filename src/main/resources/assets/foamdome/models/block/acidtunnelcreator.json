@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_column",
   "textures": {
-    "end": "foamdome:blocks/aciddomecreatortop",
-    "side": "foamdome:blocks/aciddomecreatorside"
+    "end": "foamdome:blocks/acidtunnelcreatortop",
+    "side": "foamdome:blocks/acidtunnelcreatorside"
   }
 }
