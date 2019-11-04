@@ -26,6 +26,10 @@ public class Foam extends Block {
             waterFoamDissipation(world, pos, random);
         } else if (this.getBlock().equals(acidfoam)) {
             acidFoamDissipation(world, pos, random);
+        } else if(this.getBlock().equals(gravityfoam)){
+            acidFoamDissipation(world, pos, random);
+        } else if(this.getBlock().equals(hardgravityfoam)){
+            gravityFoamDissipation(world,pos, random);
         }
 
     }
@@ -54,11 +58,16 @@ public class Foam extends Block {
     }
 
     private void acidFoamDissipation(World world, BlockPos pos, Random random) {
-        int i = random.nextInt(4);
+        int i = random.nextInt(1);
         if (i == 0) {
             world.destroyBlock(pos, false);
         }
     }
 
-
+    private void gravityFoamDissipation(World world, BlockPos pos, Random random) {
+        int i = random.nextInt(1);
+        if (i == 0) {
+            world.setBlockState(pos, Blocks.GLASS.getDefaultState());
+        }
+    }
 }

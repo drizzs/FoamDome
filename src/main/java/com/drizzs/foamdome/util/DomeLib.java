@@ -23,6 +23,9 @@ public class DomeLib {
     @ObjectHolder("foamdome:gravityfoam")
     public static Block gravityfoam;
 
+    @ObjectHolder("foamdome:hardgravityfoam")
+    public static Block hardgravityfoam;
+
     @ObjectHolder("foamdome:gravitydomecreator")
     public static Block gravitydomecreator;
 
@@ -46,5 +49,7 @@ public class DomeLib {
 
     @ObjectHolder("foamdome:foamicon")
     public static Item foamicon;
+
+    public static boolean activated = false;
 
 }

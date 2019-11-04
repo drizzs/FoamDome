@@ -9,8 +9,7 @@ issueTrackerURL="http://my.issue.tracker/"
 
 modId="foamdome"
 
-version="${1.0.0}"
-
+version="${2.0.0}"
 
 displayName="Foam Dome"
 
@@ -20,11 +19,11 @@ displayURL="http://example.com/"
 
 logoFile="examplemod.png"
 
-credits="DivineAspect for the Idea"
+credits="DivineAspect for the Idea, Snurly for Textures!"
 
 authors="Drizzs"
 
 description='''
-This makes domes underwater
+This is a Dome Creating mod, Using Foam Mekanisms you release foam in multiple different situations to get a Dome of different types!
 
 '''

@@ -24,7 +24,7 @@ public class DomeConfigs
             builder.push("Obsidian Dome Size");
             DOMESIZE = builder
                     .comment("This Controls the size of the Obsidian version of FoamDomes Dome Creators. Changing this may affect the shape of the sphere! Perfect Sphere is 5")
-                    .defineInRange("DomeSize", 5, 3, 15);
+                    .defineInRange("DomeSize", 10, 3, 15);
             GLASSDOMESIZE = builder
                     .comment("This Controls the size of the Glass version of FoamDomes Dome Creators. Changing this may affect the shape of the sphere! Perfect Sphere is 5")
                     .defineInRange("GlassDomeSize", 5, 3, 15);
