@@ -37,8 +37,7 @@ public class DomeCreator extends Block {
     public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
         if (this.getBlock().equals(gravitydomecreator)) {
             checkFallable(world, pos);
-        }
-        else {
+        } else {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -88,10 +87,9 @@ public class DomeCreator extends Block {
         } else if (this.getBlock().equals(gravitydomecreator)) {
             if (targetBlock.isIn(DomeTags.GRAVITYDOME)) {
 
-                if((x * x) + (y * y) + (z * z) < (size * size) - 1) {
+                if ((x * x) + (y * y) + (z * z) < (size * size) - 1) {
                     world.setBlockState(posAll, gravityfoam.getDefaultState());
-                }
-                else{
+                } else {
                     world.setBlockState(posAll, hardgravityfoam.getDefaultState());
                 }
             }
@@ -111,13 +109,26 @@ public class DomeCreator extends Block {
 
     //Spawns Dome in new position
     protected void onStartFalling(FallingBlockEntity fallingEntity) {
+        int random = fallingEntity.world.rand.nextInt(5);
+        int timer = 1000;
+        if (random == 0) {
+            timer = 2000;
+        } else if (random == 1) {
+            timer = 1500;
+        } else if (random == 2) {
+            timer = 1300;
+        } else if (random == 3) {
+            timer = 2200;
+        } else if (random == 4) {
+            timer = 1800;
+        }
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                BlockPos pos = new BlockPos(fallingEntity.lastTickPosX,fallingEntity.lastTickPosY,fallingEntity.lastTickPosZ);
+                BlockPos pos = new BlockPos(fallingEntity.lastTickPosX, fallingEntity.lastTickPosY, fallingEntity.lastTickPosZ);
                 foamActivation(fallingEntity.world, pos);
             }
-        }, 1000);
+        }, timer);
     }
 
 }
