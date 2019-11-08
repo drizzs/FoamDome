@@ -5,12 +5,18 @@ import com.drizzs.foamdome.util.DomeConfigs;
 import com.drizzs.foamdome.util.DomeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.material.MaterialColor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.dimension.Dimension;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,6 +42,8 @@ public class DomeCreator extends Block {
                     foamActivation(world, pos);
                 }
             }, 4000);
+
+
         }
         return true;
     }
