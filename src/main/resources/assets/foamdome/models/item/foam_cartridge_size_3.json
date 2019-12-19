@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "foamdome:items/foam_cartridge_size_3"
+  }
+}

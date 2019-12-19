@@ -1,22 +1,28 @@
 {
-  "block.foamdome.domecreator": "Obsidian Foam Dome Mekanism",
-  "block.foamdome.glassdomecreator": "Glass Foam Dome Mekanism",
-  "block.foamdome.gravitydomecreator": "Gravity Foam Dome Mekanism",
-  "block.foamdome.aciddomecreator": "Acid Foam Dome Mekanism",
+  "block.foamdome.basic_dome_creator": "Obsidian Foam Dome Mekanism",
+  "block.foamdome.glass_dome_creator": "Glass Foam Dome Mekanism",
+  "block.foamdome.gravity_dome_creator": "Gravity Foam Dome Mekanism",
+  "block.foamdome.acid_dome_creator": "Acid Foam Dome Mekanism",
 
   "block.foamdome.foam": "Foam",
-  "block.foamdome.acidfoam": "Acid Foam",
-  "block.foamdome.glassfoam": "Glass Foam",
-  "block.foamdome.gravityfoam": "Gravity Foam",
-  "block.foamdome.hardgravityfoam": "Gravity Foam",
+  "block.foamdome.acid_foam": "Acid Foam",
+  "block.foamdome.glass_foam": "Glass Foam",
+  "block.foamdome.disolvable_gravity_foam": "Gravity Foam",
+  "block.foamdome.hard_gravity_foam": "Gravity Foam",
 
-  "block.foamdome.tunnelcreator": "Obsidian Foam Tunnel Mekanism",
-  "block.foamdome.glasstunnelcreator": "Glass Foam Tunnel Mekanism",
-  "block.foamdome.airtunnelcreator": "Gravity Foam Tunnel Mekanism",
-  "block.foamdome.acidtunnelcreator": "Acid Foam Tunnel Mekanism",
+  "block.foamdome.basic_tunnel_creator": "Obsidian Foam Tunnel Mekanism",
+  "block.foamdome.glass_tunnel_creator": "Glass Foam Tunnel Mekanism",
+  "block.foamdome.gravity_tunnel_creator": "Gravity Foam Tunnel Mekanism",
+  "block.foamdome.acid_tunnel_creator": "Acid Foam Tunnel Mekanism",
 
-  "block.foamdome.notfoam": "Instant Obsidian",
+  "block.foamdome.not_foam": "Instant Obsidian",
 
+  "item.foamdome.foam_cartridge_size_2": "Silica Foam Cartridge",
+  "item.foamdome.foam_cartridge_size_3": "Silica Foam Cartridge",
+  "item.foamdome.foam_cartridge_size_4": "Silica Foam Cartridge",
+  "item.foamdome.foam_cartridge_size_5": "Silica Foam Cartridge",
+  "item.foamdome.foam_cartridge_size_6": "Silica Foam Cartridge",
+  "item.foamdome.foam_cartridge_size_7": "Silica Foam Cartridge",
 
   "itemGroup.foamdome": "Foam Dome"
 }

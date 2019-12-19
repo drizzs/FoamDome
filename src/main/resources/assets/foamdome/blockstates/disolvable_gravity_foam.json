@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": [
+      { "model": "foamdome:block/disolvable_gravity_foam" }
+    ]
+  }
+}

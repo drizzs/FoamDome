@@ -3,10 +3,12 @@ package com.drizzs.foamdome.util;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
+import static com.drizzs.foamdome.util.DomeRegistryNew.FOAM_ICON;
+
 public class DomeGroup extends ItemGroup
 {
 
-    public static final DomeGroup instance = new DomeGroup(ItemGroup.GROUPS.length, "foamdome");
+    public static final DomeGroup DOME_GROUP = new DomeGroup(ItemGroup.GROUPS.length, "foamdome");
 
     private DomeGroup(int index, String label)
     {
@@ -16,7 +18,7 @@ public class DomeGroup extends ItemGroup
     @Override
     public ItemStack createIcon()
     {
-        return new ItemStack(DomeLib.foamicon);
+        return new ItemStack(FOAM_ICON.get());
     }
 
 }
