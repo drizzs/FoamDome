@@ -38,8 +38,8 @@ public class CreatorBlock extends Block {
                 if(entity instanceof GravityDomeCreatorTile){
                     checkFallable(world, pos, (CreatorTile) entity);
                 }else {
-                    ((CreatorTile) entity).activated = true;
                     ((CreatorTile) entity).direction = direction;
+                    ((CreatorTile) entity).activated = true;
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.drizzs.foamdome.blocks;
 
+import com.drizzs.foamdome.FoamDome;
 import com.drizzs.foamdome.items.FoamCartridge;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -141,10 +142,13 @@ public class CreatorTile extends TileEntity implements ITickableTileEntity {
     public void extractInsertItemMethod(PlayerEntity player, Hand hand) {
         handler.ifPresent(inventory -> {
             ItemStack held = player.getHeldItem(hand);
+
             if (!held.isEmpty()) {
                 if (held.getItem().isIn(CARTRIDGE)) {
                     if (inventory.getStackInSlot(0).isEmpty()) {
-                        inventory.insertItem(0, held, false);
+                        ItemStack heldCopy = held.copy();
+                        heldCopy.setCount(1);
+                        inventory.insertItem(0, heldCopy, false);
                         held.shrink(1);
                     }
                 }

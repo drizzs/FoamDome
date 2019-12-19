@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -24,31 +25,21 @@ public class Foam extends Block {
     @Override
     public void tick(BlockState state, World world, BlockPos pos, Random random) {
         if (this.getBlock().equals(BASIC_FOAM.get()) || this.getBlock().equals(GLASS_FOAM.get())) {
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    waterFoamDissipation(world, pos, random);
-                }
-            }, 80);
+            waterFoamDissipation(world, pos, random);
         } else if (this.getBlock().equals(ACID_FOAM.get())) {
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    acidFoamDissipation(world, pos, random);
-                }
-            }, 80);
+            acidFoamDissipation(world, pos, random);
         } else if (this.getBlock().equals(GLASS_FOAM.get())) {
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    waterFoamDissipation(world, pos, random);
-                }
-            }, 80);
+            waterFoamDissipation(world, pos, random);
         } else if (this.getBlock().equals(HARD_GRAVITY_FOAM.get())) {
             hardGravityFoamDissipation(world, pos, random);
         } else if (this.getBlock().equals(DISOLVABLE_GRAVITY_FOAM.get())) {
             gravityFoamDissipation(world, pos, random);
         }
+    }
+
+    @Override
+    public int tickRate(IWorldReader worldIn) {
+        return 500;
     }
 
     private void waterFoamDissipation(World world, BlockPos pos, Random random) {
@@ -58,8 +49,6 @@ public class Foam extends Block {
         BlockPos south = pos.south();
         BlockPos east = pos.east();
         BlockPos west = pos.west();
-        int i = random.nextInt(1);
-        if (i == 0) {
             if (world.getBlockState(east).getBlock().isIn(DomeTags.UNDERWATER) || world.getBlockState(west).getBlock().isIn(DomeTags.UNDERWATER)
                     || world.getBlockState(south).getBlock().isIn(DomeTags.UNDERWATER) || world.getBlockState(north).getBlock().isIn(DomeTags.UNDERWATER)
                     || world.getBlockState(up).getBlock().isIn(DomeTags.UNDERWATER) || world.getBlockState(down).getBlock().isIn(DomeTags.UNDERWATER)) {
@@ -71,7 +60,6 @@ public class Foam extends Block {
             } else {
                 world.destroyBlock(pos, true);
             }
-        }
     }
 
     private void acidFoamDissipation(World world, BlockPos pos, Random random) {
