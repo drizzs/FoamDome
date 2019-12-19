@@ -19,6 +19,21 @@ public class Foam extends Block {
         super(properties);
     }
 
+    @Override
+    public boolean ticksRandomly(BlockState p_149653_1_) {
+        if (this.getBlock().equals(BASIC_FOAM.get()) || this.getBlock().equals(GLASS_FOAM.get())) {
+            waterFoamDissipation(world, pos, random);
+        } else if (this.getBlock().equals(ACID_FOAM.get())) {
+            acidFoamDissipation(world, pos, random);
+        } else if(this.getBlock().equals(GLASS_FOAM.get())){
+            acidFoamDissipation(world, pos, random);
+        } else if(this.getBlock().equals(HARD_GRAVITY_FOAM.get())){
+            hardGravityFoamDissipation(world,pos, random);
+        }else if(this.getBlock().equals(DISOLVABLE_GRAVITY_FOAM.get())){
+            gravityFoamDissipation(world,pos, random);
+        }
+        return true;
+    }
 
     @Override
     public void tick(BlockState state, World world, BlockPos pos, Random random) {
