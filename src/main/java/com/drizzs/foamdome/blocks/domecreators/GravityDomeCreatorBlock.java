@@ -24,4 +24,5 @@ public class GravityDomeCreatorBlock extends Block {
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new GravityDomeCreatorTile();
     }
+
 }

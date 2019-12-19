@@ -1,10 +1,13 @@
-package com.drizzs.foamdome.domecreators.tile;
+package com.drizzs.foamdome.blocks.domecreators.tile;
+
+import com.drizzs.foamdome.blocks.CreatorTile;
 
 import static com.drizzs.foamdome.util.DomeRegistryNew.BASIC_DOME_TILE;
 
-public class BasicDomeCreatorTile extends DomeCreatorTile {
+public class BasicDomeCreatorTile extends CreatorTile {
 
     public BasicDomeCreatorTile() {
         super(BASIC_DOME_TILE.get());
     }
+
 }
