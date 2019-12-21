@@ -2,29 +2,25 @@ package com.drizzs.foamdome.blocks.domecreators.tile;
 
 import com.drizzs.foamdome.FoamDome;
 import com.drizzs.foamdome.blocks.CreatorTile;
+import com.drizzs.foamdome.util.FoamVariables;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static com.drizzs.foamdome.util.DomeRegistryNew.*;
 import static com.drizzs.foamdome.util.DomeTags.*;
-import static net.minecraft.block.FallingBlock.canFallThrough;
 
 public class GravityDomeCreatorTile extends CreatorTile {
 
-    public List<BlockPos> outsidePos;
-    public List<BlockPos> insidePos;
+    public List<BlockPos> outsidePos = new ArrayList<BlockPos>();
+    public List<BlockPos> insidePos = new ArrayList<BlockPos>();
 
-    public boolean build = false;
 
     public GravityDomeCreatorTile() {
         super(GRAVITY_DOME_TILE.get());
@@ -39,48 +35,41 @@ public class GravityDomeCreatorTile extends CreatorTile {
     public void foamMovieMagic() {
         if (activated) {
             FoamDome.LOGGER.info("activated");
-            handler.ifPresent(inventory -> {
-                ItemStack item = inventory.getStackInSlot(0);
-                if (!item.isEmpty()) {
-                    int size = getSize(item.getItem());
-                    if (insidePos.isEmpty() && outsidePos.isEmpty()) {
-                        possibleTargets(direction, size);
-                    }
-                    else if (insidePos.size() != 0) {
-                        BlockPos pos = insidePos.get(0);
-                        world.setBlockState(pos, getFoam());
-                        insidePos.remove(0);
-                        if (insidePos.isEmpty() && outsidePos.isEmpty()) {
-                            item.shrink(1);
-                            activated = false;
-                        }
-                    }
-                    else if (outsidePos.size() != 0) {
-                        BlockPos pos2 = outsidePos.get(0);
-                        world.setBlockState(pos2, getFoam2());
-                        outsidePos.remove(0);
-                        if (insidePos.isEmpty() && outsidePos.isEmpty()) {
-                            item.shrink(1);
-                            activated = false;
-                        }
-                    }
-                } else {
-                    activated = false;
+            ItemStack item = FoamVariables.item;
+            FoamDome.LOGGER.info("info");
+            if (!item.isEmpty()) {
+                int size = getSize(item.getItem());
+                FoamDome.LOGGER.info(noPos);
+                if (!noPos) {
+                    possibleTargets(direction, size);
+                    FoamDome.LOGGER.info("this many inside positions" + insidePos.size() + "and this many outside positions" + outsidePos.size());
+                    noPos = true;
                 }
-            });
-        }
-    }
+                if (!insidePos.isEmpty()) {
+                    BlockPos pos = insidePos.get(0);
+                    world.setBlockState(pos, getFoam());
+                    insidePos.remove(0);
+                }
+                if (!outsidePos.isEmpty()) {
+                    BlockPos pos2 = outsidePos.get(0);
+                    world.setBlockState(pos2, getFoam2());
+                    outsidePos.remove(0);
+                }
+                if (insidePos.isEmpty() && outsidePos.isEmpty()) {
+                    FoamVariables.item = null;
+                    activated = false;
+                    noPos = false;
+                }
+            } else {
+                activated = false;
+            }
 
-    public void addPosIfValid(BlockPos pos, List<BlockPos> list) {
-        BlockState state = world.getBlockState(pos);
-        if (state.isIn(getTag())) {
-            list.add(pos);
         }
     }
 
     @Override
     public Tag<Block> getTag() {
-        return UNDERWATER;
+        return GRAVITYDOME;
     }
 
     @Override
@@ -102,13 +91,24 @@ public class GravityDomeCreatorTile extends CreatorTile {
                     double zp = Math.pow(z, 2);
                     if (xp + yp + zp < (Math.pow(size, 2))) {
                         BlockPos targetPos = pos.add(x, y, z);
-                        if (xp + yp + zp < (Math.pow(size, 2) - 1)) {
-                            addPosIfValid(targetPos, insidePos);
+                        if (xp + yp + zp < (Math.pow((size - 1), 2))) {
+                                    addPosIfValid(targetPos, insidePos);
                         } else {
-                            addPosIfValid(targetPos, outsidePos);
+                                    addPosIfValid(targetPos, outsidePos);
                         }
                     }
                 }
+            }
+        }
+    }
+
+    @Override
+    public void addPosIfValid(BlockPos pos, List<BlockPos> list) {
+        BlockState state = world.getBlockState(pos);
+        boolean isNotCreator = !state.equals(this.getBlockState());
+        if(!insidePos.contains(pos) && isNotCreator){
+            if(state.isIn(getTag()) || state.isAir(world, pos)) {
+                list.add(pos);
             }
         }
     }

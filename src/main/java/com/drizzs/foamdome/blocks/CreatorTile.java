@@ -1,18 +1,20 @@
 package com.drizzs.foamdome.blocks;
 
-import com.drizzs.foamdome.FoamDome;
 import com.drizzs.foamdome.items.FoamCartridge;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -25,11 +27,12 @@ import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.drizzs.foamdome.util.DomeRegistryNew.BASIC_FOAM;
 import static com.drizzs.foamdome.util.DomeTags.*;
 
-public class CreatorTile extends TileEntity implements ITickableTileEntity {
+public class CreatorTile extends TileEntity implements ITickableTileEntity{
 
     public boolean activated = false;
     public boolean noPos = false;
@@ -65,6 +68,7 @@ public class CreatorTile extends TileEntity implements ITickableTileEntity {
                     if (targetPos.isEmpty()) {
                         activated = false;
                         item.shrink(1);
+                        noPos = false;
                     }
                 }
                 else{activated = false;}
@@ -159,4 +163,27 @@ public class CreatorTile extends TileEntity implements ITickableTileEntity {
         });
     }
 
+    @Override
+    public void read(CompoundNBT tag) {
+        super.read(tag);
+        NonNullList<ItemStack> stack = NonNullList.withSize(1, ItemStack.EMPTY);
+        ItemStackHelper.loadAllItems(tag, stack);
+        ItemStack item = stack.get(0);
+        handler.ifPresent(inventory -> {
+            inventory.insertItem(0,item,false);
+        });
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT compound) {
+        super.write(compound);
+        NonNullList<ItemStack> stack = NonNullList.withSize(1, ItemStack.EMPTY);
+        handler.ifPresent(inventory -> {
+            stack.add(0, inventory.getStackInSlot(0));
+        });
+        if(!stack.isEmpty()) {
+            ItemStackHelper.saveAllItems(compound, stack);
+        }
+        return compound;
+    }
 }

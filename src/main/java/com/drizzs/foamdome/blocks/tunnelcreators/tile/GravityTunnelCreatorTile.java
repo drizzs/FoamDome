@@ -1,33 +1,17 @@
 package com.drizzs.foamdome.blocks.tunnelcreators.tile;
 
+import com.drizzs.foamdome.FoamDome;
 import com.drizzs.foamdome.blocks.CreatorTile;
-import com.drizzs.foamdome.items.FoamCartridge;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.Tag;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.drizzs.foamdome.util.DomeRegistryNew.*;
-import static com.drizzs.foamdome.util.DomeTags.CARTRIDGE;
 import static com.drizzs.foamdome.util.DomeTags.GRAVITYDOME;
 
 public class GravityTunnelCreatorTile extends CreatorTile {
@@ -49,216 +33,194 @@ public class GravityTunnelCreatorTile extends CreatorTile {
         return GRAVITYDOME;
     }
 
-    private void disolvingGravityFoamCreation(int size) {
-        size -= 1;
-        if (direction == Direction.SOUTH) {
-            for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(1, 1, -y));
-                outsidePos.add(this.pos.add(-1, 1, -y));
-                outsidePos.add(this.pos.add(2, 1, -y));
-                outsidePos.add(this.pos.add(-2, 1, -y));
-                outsidePos.add(this.pos.add(0, 0, -y));
-                outsidePos.add(this.pos.add(-1, 0, -y));
-                outsidePos.add(this.pos.add(1, 0, -y));
-                outsidePos.add(this.pos.add(-2, 0, -y));
-                outsidePos.add(this.pos.add(2, 0, -y));
-                outsidePos.add(this.pos.add(0, 2, -y));
-            }
-        }else if (direction == Direction.NORTH) {
-            for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(1, 1, y));
-                outsidePos.add(this.pos.add(-1, 1, y));
-                outsidePos.add(this.pos.add(2, 1, y));
-                outsidePos.add(this.pos.add(-2, 1, y));
-                outsidePos.add(this.pos.add(0, 0, y));
-                outsidePos.add(this.pos.add(-1, 0, y));
-                outsidePos.add(this.pos.add(1, 0, y));
-                outsidePos.add(this.pos.add(-2, 0, y));
-                outsidePos.add(this.pos.add(2, 0, y));
-                outsidePos.add(this.pos.add(0, 2, y));
-            }
-        }else if (direction == Direction.EAST) {
-            for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(-y, 1, 1));
-                outsidePos.add(this.pos.add(-y, 1, -1));
-                outsidePos.add(this.pos.add(-y, 1, 2));
-                outsidePos.add(this.pos.add(-y, 1, -2));
-                outsidePos.add(this.pos.add(-y, 0, 0));
-                outsidePos.add(this.pos.add(-y, 0, -1));
-                outsidePos.add(this.pos.add(-y, 0, 1));
-                outsidePos.add(this.pos.add(-y, 0, 2));
-                outsidePos.add(this.pos.add(-y, 0, -2));
-                outsidePos.add(this.pos.add(-y, 2, 0));
-            }
-        } else if (direction == Direction.WEST) {
-            for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(y, 1, 1));
-                outsidePos.add(this.pos.add(y, 1, -1));
-                outsidePos.add(this.pos.add(y, 1, 2));
-                outsidePos.add(this.pos.add(y, 1, -2));
-                outsidePos.add(this.pos.add(y, 0, 0));
-                outsidePos.add(this.pos.add(y, 0, -1));
-                outsidePos.add(this.pos.add(y, 0, 1));
-                outsidePos.add(this.pos.add(y, 0, 2));
-                outsidePos.add(this.pos.add(y, 0, -2));
-                outsidePos.add(this.pos.add(y, 2, 0));
-            }
-        }else if (direction == Direction.DOWN) {
-            for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(0, -y, 1));
-                outsidePos.add(this.pos.add(1, -y, 0));
-                outsidePos.add(this.pos.add(-1, -y, 0));
-                outsidePos.add(this.pos.add(0, -y, -1));
-                outsidePos.add(this.pos.add(0, -y, 0));
-            }
-        }else if (direction == Direction.UP) {
-            for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(0, y, 1));
-                outsidePos.add(this.pos.add(1, y, 0));
-                outsidePos.add(this.pos.add(-1, y, 0));
-                outsidePos.add(this.pos.add(0, y, -1));
-                outsidePos.add(this.pos.add(0, y, 0));
-            }
+    @Override
+    public void foamMovieMagic() {
+        if(activated){
+            handler.ifPresent(inventory -> {
+                ItemStack item = inventory.getStackInSlot(0);
+                if (!item.isEmpty()) {
+                    int size = getSize(item.getItem());
+                    if (!this.noPos) {
+                        insideFoam(direction, size);
+                        possibleTargets(direction, size);
+                        int checker1 = insidePos.size();
+                        int checker2 = outsidePos.size();
+                        FoamDome.LOGGER.info("attained this many of each pos type" + checker1 + " " +checker2);
+                        noPos = true;
+                    }
+                    if (!insidePos.isEmpty()) {
+                        BlockPos pos = insidePos.get(0);
+                        world.setBlockState(pos, getFoam2());
+                        insidePos.remove(0);
+                    }
+                    if (!outsidePos.isEmpty()) {
+                        BlockPos pos = outsidePos.get(0);
+                        world.setBlockState(pos, getFoam());
+                        outsidePos.remove(0);
+                    }
+                    if(outsidePos.isEmpty() && insidePos.isEmpty()){
+                        activated = false;
+                        item.shrink(1);
+                        noPos = false;
+                    }
+                }
+                else{activated = false;}
+            });
         }
     }
 
-    private void hardGravityFoamCreation(Direction direction,int size) {
+    @Override
+    public void possibleTargets(Direction direction, int size) {
+        size += 4;
         if (direction == Direction.SOUTH) {
-            for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(0, -1, -y));
-                outsidePos.add(this.pos.add(1, -1, -y));
-                outsidePos.add(this.pos.add(-1, -1, -y));
-                outsidePos.add(this.pos.add(-2, -1, -y));
-                outsidePos.add(this.pos.add(2, -1, -y));
-                outsidePos.add(this.pos.add(0, 4, -y));
-                outsidePos.add(this.pos.add(-1, 3, -y));
-                outsidePos.add(this.pos.add(1, 3, -y));
-                outsidePos.add(this.pos.add(2, -2, -y));
-                outsidePos.add(this.pos.add(-2, 2, -y));
-                outsidePos.add(this.pos.add(-2, -1, -y));
-                outsidePos.add(this.pos.add(2, 1, -y));
+            for (int y = -1; y < 4; ++y) {
+                for (int x = -2; x <= 2; ++x) {
+                    for (int z = 0; z > -size; --z) {
+                        if (y == 3) {
+                            if (x == -2 || x == 2) {
+                                break;
+                            }
+                        }
+                        BlockPos targetPos = pos.add(x, y, z);
+                        addPosIfValid(targetPos, outsidePos);
+                    }
+                }
             }
-            outsidePos.add(this.pos.add(1, 1, -size));
-            outsidePos.add(this.pos.add(-1, 1, -size));
-            outsidePos.add(this.pos.add(2, 1, -size));
-            outsidePos.add(this.pos.add(-2, 1, -size));
-            outsidePos.add(this.pos.add(0, 0, -size));
-            outsidePos.add(this.pos.add(-1, 0, -size));
-            outsidePos.add(this.pos.add(1, 0, -size));
-            outsidePos.add(this.pos.add(-2, 0, -size));
-            outsidePos.add(this.pos.add(2, 0, -size));
-            outsidePos.add(this.pos.add(0, 2, -size));
         } else if (direction == Direction.NORTH) {
-            for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(0, -1, y));
-                outsidePos.add(this.pos.add(1, -1, y));
-                outsidePos.add(this.pos.add(-1, -1, y));
-                outsidePos.add(this.pos.add(-2, -1, y));
-                outsidePos.add(this.pos.add(2, -1, y));
-                outsidePos.add(this.pos.add(0, 4, y));
-                outsidePos.add(this.pos.add(-1, 3, y));
-                outsidePos.add(this.pos.add(1, 3, y));
-                outsidePos.add(this.pos.add(2, -2, y));
-                outsidePos.add(this.pos.add(-2, 2, y));
-                outsidePos.add(this.pos.add(-2, -1, y));
-                outsidePos.add(this.pos.add(2, 1, y));
+            for (int y = -1; y < 4; ++y) {
+                for (int x = -2; x <= 2; ++x) {
+                    for (int z = 0; z < size; ++z) {
+                        if (y == 3) {
+                            if (x == -2 || x == 2) {
+                                break;
+                            }
+                        }
+                        BlockPos targetPos = pos.add(x, y, z);
+                        addPosIfValid(targetPos, outsidePos);
+                    }
+                }
             }
-            outsidePos.add(this.pos.add(1, 1, size));
-            outsidePos.add(this.pos.add(-1, 1, size));
-            outsidePos.add(this.pos.add(2, 1, size));
-            outsidePos.add(this.pos.add(-2, 1, size));
-            outsidePos.add(this.pos.add(0, 0, size));
-            outsidePos.add(this.pos.add(-1, 0, size));
-            outsidePos.add(this.pos.add(1, 0, size));
-            outsidePos.add(this.pos.add(-2, 0, size));
-            outsidePos.add(this.pos.add(2, 0, size));
-            outsidePos.add(this.pos.add(0, 2, size));
         } else if (direction == Direction.EAST) {
-            for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(-y, -1, 0));
-                outsidePos.add(this.pos.add(-y, -1, 1));
-                outsidePos.add(this.pos.add(-y, -1, -1));
-                outsidePos.add(this.pos.add(-y, -1, -2));
-                outsidePos.add(this.pos.add(-y, -1, 2));
-                outsidePos.add(this.pos.add(-y, 4, 0));
-                outsidePos.add(this.pos.add(-y, 3, -1));
-                outsidePos.add(this.pos.add(-y, 3, 1));
-                outsidePos.add(this.pos.add(-y, -2, 2));
-                outsidePos.add(this.pos.add(-y, 2, -2));
-                outsidePos.add(this.pos.add(-y, -1, -2));
-                outsidePos.add(this.pos.add(-y, 1, 2));
+            for (int y = -1; y < 4; ++y) {
+                for (int x = -2; x <= 2; ++x) {
+                    for (int z = 0; z > -size; --z) {
+                        if (y == 3) {
+                            if (x == -2 || x == 2) {
+                                break;
+                            }
+                        }
+                        BlockPos targetPos = pos.add(z, y, x);
+                        addPosIfValid(targetPos, outsidePos);
+                    }
+                }
             }
-            outsidePos.add(this.pos.add(-size, 1, 1));
-            outsidePos.add(this.pos.add(-size, 1, -1));
-            outsidePos.add(this.pos.add(-size, 1, 2));
-            outsidePos.add(this.pos.add(-size, 1, -2));
-            outsidePos.add(this.pos.add(-size, 0, 0));
-            outsidePos.add(this.pos.add(-size, 0, -1));
-            outsidePos.add(this.pos.add(-size, 0, 1));
-            outsidePos.add(this.pos.add(-size, 0, 2));
-            outsidePos.add(this.pos.add(-size, 0, -2));
-            outsidePos.add(this.pos.add(-size, 2, 0));
         } else if (direction == Direction.WEST) {
-            for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(y, -1, 0));
-                outsidePos.add(this.pos.add(y, -1, 1));
-                outsidePos.add(this.pos.add(y, -1, -1));
-                outsidePos.add(this.pos.add(y, -1, -2));
-                outsidePos.add(this.pos.add(y, -1, 2));
-                outsidePos.add(this.pos.add(y, 4, 0));
-                outsidePos.add(this.pos.add(y, 3, -1));
-                outsidePos.add(this.pos.add(y, 3, 1));
-                outsidePos.add(this.pos.add(y, -2, 2));
-                outsidePos.add(this.pos.add(y, 2, -2));
-                outsidePos.add(this.pos.add(y, -1, -2));
-                outsidePos.add(this.pos.add(y, 1, 2));
+
+            for (int y = -1; y < 4; ++y) {
+                for (int x = -2; x <= 2; ++x) {
+                    for (int z = 0; z < size; ++z) {
+                        if (y == 3) {
+                            if (x == -2 || x == 2) {
+                                break;
+                            }
+                        }
+                        BlockPos targetPos = pos.add(z, y, x);
+                        addPosIfValid(targetPos, outsidePos);
+                    }
+                }
             }
-            outsidePos.add(this.pos.add(size, 1, 1));
-            outsidePos.add(this.pos.add(size, 1, -1));
-            outsidePos.add(this.pos.add(size, 1, 2));
-            outsidePos.add(this.pos.add(size, 1, -2));
-            outsidePos.add(this.pos.add(size, 0, 0));
-            outsidePos.add(this.pos.add(size, 0, -1));
-            outsidePos.add(this.pos.add(size, 0, 1));
-            outsidePos.add(this.pos.add(size, 0, 2));
-            outsidePos.add(this.pos.add(size, 0, -2));
-            outsidePos.add(this.pos.add(size, 2, 0));
         } else if (direction == Direction.DOWN) {
             for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(2, -y, 0));
-                outsidePos.add(this.pos.add(0, -y, 2));
-                outsidePos.add(this.pos.add(-2, -y, 0));
-                outsidePos.add(this.pos.add(0, -y, -2));
-                outsidePos.add(this.pos.add(1, -y, 1));
-                outsidePos.add(this.pos.add(-1, -y, 1));
-                outsidePos.add(this.pos.add(-1, -y, -1));
-                outsidePos.add(this.pos.add(1, -y, 11));
+                for (int x = -2; x <= 2; ++x) {
+                    for (int z = -2; z <= 2; ++z) {
+                        BlockPos targetPos = pos.add(x, y, z);
+                        addPosIfValid(targetPos, outsidePos);
+                    }
+                }
             }
-            outsidePos.add(this.pos.add(0, -size, 1));
-            outsidePos.add(this.pos.add(1, -size, 0));
-            outsidePos.add(this.pos.add(-1, -size, 0));
-            outsidePos.add(this.pos.add(0, -size, -1));
-            outsidePos.add(this.pos.add(0, -size, 0));
-
         } else if (direction == Direction.UP) {
-            for (int y = 0; y < size; ++y) {
-                outsidePos.add(this.pos.add(2, y, 0));
-                outsidePos.add(this.pos.add(0, y, 2));
-                outsidePos.add(this.pos.add(-2, y, 0));
-                outsidePos.add(this.pos.add(0, y, -2));
-                outsidePos.add(this.pos.add(1, y, 1));
-                outsidePos.add(this.pos.add(-1, y, 1));
-                outsidePos.add(this.pos.add(-1, y, -1));
-                outsidePos.add(this.pos.add(1, y, 1));
-
+            for (int y = 0; y > -size; ++y) {
+                for (int x = -2; x <= 2; ++x) {
+                    for (int z = -2; z <= 2; ++z) {
+                        BlockPos targetPos = pos.add(x, y, z);
+                        addPosIfValid(targetPos, outsidePos);
+                    }
+                }
             }
-            outsidePos.add(this.pos.add(0, size, 1));
-            outsidePos.add(this.pos.add(1, size, 0));
-            outsidePos.add(this.pos.add(-1, size, 0));
-            outsidePos.add(this.pos.add(0, size, -1));
-            outsidePos.add(this.pos.add(0, size, 0));
         }
     }
+
+    @Override
+    public void addPosIfValid(BlockPos pos, List<BlockPos> list) {
+        BlockState state = world.getBlockState(pos);
+        boolean isNotCreator = !state.equals(this.getBlockState());
+        if(!insidePos.contains(pos) && isNotCreator){
+            if(state.isIn(getTag()) || state.isAir(world, pos)) {
+                list.add(pos);
+            }
+        }
+    }
+
+    private void insideFoam(Direction direction, int size) {
+        size += 3;
+        if (direction == Direction.SOUTH) {
+            for (int y = 0; y < 3; ++y) {
+                for (int x = -1; x <= 1; ++x) {
+                    for (int z = 1; z > -size; --z) {
+                        BlockPos targetPos = pos.add(x, y, z);
+                        addPosIfValid(targetPos, insidePos);
+                    }
+                }
+            }
+        } else if (direction == Direction.NORTH) {
+            for (int y = 0; y < 3; ++y) {
+                for (int x = -1; x <= 1; ++x) {
+                    for (int z = 1; z < size; ++z) {
+                        BlockPos targetPos = pos.add(x, y, z);
+                        addPosIfValid(targetPos, insidePos);
+                    }
+                }
+            }
+        } else if (direction == Direction.EAST) {
+            for (int y = -0; y < 3; ++y) {
+                for (int x = -2; x <= 2; ++x) {
+                    for (int z = 1; z > -size; --z) {
+                        BlockPos targetPos = pos.add(z, y, x);
+                        addPosIfValid(targetPos, insidePos);
+                    }
+                }
+            }
+        } else if (direction == Direction.WEST) {
+
+            for (int y = -0; y < 3; ++y) {
+                for (int x = -1; x <= 1; ++x) {
+                    for (int z = 1; z < size; ++z) {
+                        BlockPos targetPos = pos.add(z, y, x);
+                        addPosIfValid(targetPos, insidePos);
+                    }
+                }
+            }
+        } else if (direction == Direction.DOWN) {
+            for (int y = 1; y < size; ++y) {
+                for (int x = -1; x <= 1; ++x) {
+                    for (int z = -1; z <= 1; ++z) {
+                        BlockPos targetPos = pos.add(x, y, z);
+                        addPosIfValid(targetPos, insidePos);
+                    }
+                }
+            }
+        } else if (direction == Direction.UP) {
+            for (int y = 1; y > -size; ++y) {
+                for (int x = -2; x <= 2; ++x) {
+                    for (int z = -2; z <= 2; ++z) {
+                        BlockPos targetPos = pos.add(x, y, z);
+                        addPosIfValid(targetPos, insidePos);
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public BlockState getFoam() {
         return HARD_GRAVITY_FOAM.get().getDefaultState();

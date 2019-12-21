@@ -1,6 +1,9 @@
 package com.drizzs.foamdome.blocks;
 
+import com.drizzs.foamdome.FoamDome;
+import com.drizzs.foamdome.blocks.domecreators.GravityEntity;
 import com.drizzs.foamdome.blocks.domecreators.tile.GravityDomeCreatorTile;
+import com.drizzs.foamdome.util.FoamVariables;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.FallingBlockEntity;
@@ -36,7 +39,12 @@ public class CreatorBlock extends Block {
         } else {
             if (entity instanceof CreatorTile) {
                 if(entity instanceof GravityDomeCreatorTile){
-                    checkFallable(world, pos, (CreatorTile) entity);
+                    ((CreatorTile) entity).handler.ifPresent(inventory -> {
+                        FoamVariables.item = inventory.getStackInSlot(0);
+                    });
+                    if (!FoamVariables.item.isEmpty()) {
+                        checkFallable(world, pos);
+                    }
                 }else {
                     ((CreatorTile) entity).direction = direction;
                     ((CreatorTile) entity).activated = true;
@@ -58,41 +66,12 @@ public class CreatorBlock extends Block {
         super.onBlockHarvested(world, pos, state, playerEntity);
     }
 
-    private void checkFallable(World worldIn, BlockPos pos, CreatorTile newentity) {
+    private void checkFallable(World worldIn, BlockPos pos) {
         if (worldIn.isAirBlock(pos.down()) || canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
+            FallingBlockEntity fallingblockentity = new GravityEntity(worldIn, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, worldIn.getBlockState(pos));
             if (!worldIn.isRemote) {
-                FallingBlockEntity fallingblockentity = new FallingBlockEntity(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, worldIn.getBlockState(pos));
                 worldIn.addEntity(fallingblockentity);
-                this.onStartFalling(fallingblockentity, worldIn);
             }
         }
-    }
-
-    protected void onStartFalling(FallingBlockEntity fallingEntity, World world) {
-        int random = fallingEntity.world.rand.nextInt(5);
-        int timer = 1000;
-        if (random == 0) {
-            timer = 2000;
-        } else if (random == 1) {
-            timer = 1500;
-        } else if (random == 2) {
-            timer = 1300;
-        } else if (random == 3) {
-            timer = 2200;
-        } else if (random == 4) {
-            timer = 1800;
-        }
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                BlockState state = fallingEntity.getBlockState();
-                BlockPos pos = fallingEntity.getPosition();
-                world.setBlockState(pos,state);
-                TileEntity entity = world.getTileEntity(pos);
-                if(entity instanceof CreatorTile) {
-                    ((CreatorTile) entity).activated = true;
-                }
-            }
-        }, timer);
     }
 }
