@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "#E#",
+    "   "
+  ],
+  "key": {
+    "#": {
+      "item": "foamdome:foam_cartridge_size_2"
+    },
+    "E": {
+      "item": "minecraft:slime_ball"
+    }
+  },
+  "result": {
+    "item": "foamdome:foam_cartridge_size_3"
+  }
+}
