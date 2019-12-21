@@ -17,9 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import static net.minecraft.block.FallingBlock.canFallThrough;
 
 public class CreatorBlock extends Block {

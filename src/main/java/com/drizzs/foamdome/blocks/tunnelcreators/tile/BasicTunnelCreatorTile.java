@@ -1,6 +1,6 @@
 package com.drizzs.foamdome.blocks.tunnelcreators.tile;
 
-import static com.drizzs.foamdome.util.DomeRegistryNew.BASIC_TUNNEL_TILE;
+import static com.drizzs.foamdome.util.DomeRegistry.BASIC_TUNNEL_TILE;
 
 public class BasicTunnelCreatorTile extends TunnelCreatorTile {
 

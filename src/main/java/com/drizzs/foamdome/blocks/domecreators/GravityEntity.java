@@ -1,7 +1,7 @@
 package com.drizzs.foamdome.blocks.domecreators;
 
-import com.drizzs.foamdome.FoamDome;
 import com.drizzs.foamdome.blocks.CreatorTile;
+import com.drizzs.foamdome.util.FoamVariables;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.FallingBlockEntity;
@@ -43,15 +43,13 @@ public class GravityEntity extends FallingBlockEntity {
     public void stopTheFalling() {
         this.remove();
         BlockPos pos = new BlockPos(posX, posY, posZ);
-        FoamDome.LOGGER.info(pos);
         world.setBlockState(pos, this.getBlockState());
         TileEntity entityTile = world.getTileEntity(pos);
-        FoamDome.LOGGER.info(entityTile);
-        BlockPos entityPos = entityTile.getPos();
-        FoamDome.LOGGER.info(entityPos);
         if (entityTile instanceof CreatorTile) {
             ((CreatorTile) entityTile).activated = true;
-            FoamDome.LOGGER.info(((CreatorTile) entityTile).activated);
+            ((CreatorTile) entityTile).handler.ifPresent(inventory ->{
+                inventory.insertItem(0, FoamVariables.item, true);
+            });
         }
     }
 }

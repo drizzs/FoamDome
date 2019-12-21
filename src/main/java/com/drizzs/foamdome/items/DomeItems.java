@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static com.drizzs.foamdome.util.DomeRegistryNew.*;
+import static com.drizzs.foamdome.util.DomeRegistry.*;
 
 
 public class DomeItems extends BlockItem {

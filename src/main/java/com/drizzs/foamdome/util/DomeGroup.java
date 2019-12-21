@@ -3,7 +3,7 @@ package com.drizzs.foamdome.util;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
-import static com.drizzs.foamdome.util.DomeRegistryNew.FOAM_ICON;
+import static com.drizzs.foamdome.util.DomeRegistry.FOAM_ICON;
 
 public class DomeGroup extends ItemGroup
 {

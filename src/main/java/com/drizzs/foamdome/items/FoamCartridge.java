@@ -25,6 +25,6 @@ public class FoamCartridge extends Item {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(new TranslationTextComponent("Creates a dome of radius " + domeSize,1));
+        tooltip.add(new TranslationTextComponent("Creates a dome of radius " + domeSize + "or a Tunnel with a length of" + (domeSize+4) +"blocks" ,1));
     }
 }

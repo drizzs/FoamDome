@@ -1,6 +1,6 @@
 package com.drizzs.foamdome;
 
-import com.drizzs.foamdome.util.DomeRegistryNew;
+import com.drizzs.foamdome.util.DomeRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +19,6 @@ public class FoamDome
     public FoamDome() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        DomeRegistryNew.register(bus);
+        DomeRegistry.register(bus);
     }
 }

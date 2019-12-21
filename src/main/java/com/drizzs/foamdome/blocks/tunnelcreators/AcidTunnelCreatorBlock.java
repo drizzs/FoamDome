@@ -1,7 +1,6 @@
 package com.drizzs.foamdome.blocks.tunnelcreators;
 
 import com.drizzs.foamdome.blocks.CreatorBlock;
-import com.drizzs.foamdome.blocks.domecreators.tile.AcidDomeCreatorTile;
 import com.drizzs.foamdome.blocks.tunnelcreators.tile.AcidTunnelCreatorTile;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;

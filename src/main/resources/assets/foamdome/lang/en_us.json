@@ -4,10 +4,12 @@
   "block.foamdome.gravity_dome_creator": "Gravity Foam Dome Mekanism",
   "block.foamdome.acid_dome_creator": "Acid Foam Dome Mekanism",
 
-  "block.foamdome.foam": "Foam",
+  "block.foamdome.basic_foam": "Foam",
   "block.foamdome.acid_foam": "Acid Foam",
   "block.foamdome.glass_foam": "Glass Foam",
   "block.foamdome.disolvable_gravity_foam": "Gravity Foam",
+  "block.foamdome.disolvable_glass_foam": "Glass Foam",
+  "block.foamdome.disolvable_basic_foam": "Foam",
   "block.foamdome.hard_gravity_foam": "Gravity Foam",
 
   "block.foamdome.basic_tunnel_creator": "Obsidian Foam Tunnel Mekanism",

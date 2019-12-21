@@ -27,9 +27,9 @@ import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
-import static com.drizzs.foamdome.util.DomeRegistryNew.BASIC_FOAM;
+import static com.drizzs.foamdome.util.DomeRegistry.BASIC_FOAM;
+import static com.drizzs.foamdome.util.DomeRegistry.DISOLVABLE_BASIC_FOAM;
 import static com.drizzs.foamdome.util.DomeTags.*;
 
 public class CreatorTile extends TileEntity implements ITickableTileEntity{
@@ -39,7 +39,8 @@ public class CreatorTile extends TileEntity implements ITickableTileEntity{
 
     public Direction direction = null;
 
-    public List<BlockPos> targetPos = new ArrayList<BlockPos>();
+    public List<BlockPos> outsidePos = new ArrayList<BlockPos>();
+    public List<BlockPos> insidePos = new ArrayList<BlockPos>();
 
     public LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
 
@@ -52,20 +53,28 @@ public class CreatorTile extends TileEntity implements ITickableTileEntity{
         foamMovieMagic();
     }
 
+
     public void foamMovieMagic() {
-        if (activated) {
+        if(activated){
             handler.ifPresent(inventory -> {
                 ItemStack item = inventory.getStackInSlot(0);
                 if (!item.isEmpty()) {
                     int size = getSize(item.getItem());
-                    if (!noPos) {
-                        possibleTargets(direction,size);
+                    if (!this.noPos) {
+                        possibleTargets(direction, size);
                         noPos = true;
                     }
-                    BlockPos pos = targetPos.get(0);
-                    world.setBlockState(pos, getFoam());
-                    targetPos.remove(0);
-                    if (targetPos.isEmpty()) {
+                    if (!insidePos.isEmpty()) {
+                        BlockPos pos = insidePos.get(0);
+                        world.setBlockState(pos, getFoam2());
+                        insidePos.remove(0);
+                    }
+                    if (!outsidePos.isEmpty()) {
+                        BlockPos pos = outsidePos.get(0);
+                        world.setBlockState(pos, getFoam());
+                        outsidePos.remove(0);
+                    }
+                    if(outsidePos.isEmpty() && insidePos.isEmpty()){
                         activated = false;
                         item.shrink(1);
                         noPos = false;
@@ -77,15 +86,19 @@ public class CreatorTile extends TileEntity implements ITickableTileEntity{
     }
 
     public void possibleTargets(Direction direction, int size) {
-        for (int x = -size; x <= size; ++x) {
-            for (int y = -size; y <= size; ++y) {
-                for (int z = -size; z <= size; ++z) {
-                    double xp = Math.pow(x,2);
-                    double yp = Math.pow(y,2);
-                    double zp = Math.pow(z,2);
-                    if (xp+yp+zp < (Math.pow(size,2))) {
-                        BlockPos targetPosition = pos.add(x, y, z);
-                        addPosIfValid(targetPosition, targetPos);
+        for (int x = -size; x < size; ++x) {
+            for (int y = -size; y < size; ++y) {
+                for (int z = -size; z < size; ++z) {
+                    double xp = Math.pow(x, 2);
+                    double yp = Math.pow(y, 2);
+                    double zp = Math.pow(z, 2);
+                    if (xp + yp + zp < (Math.pow(size, 2))) {
+                        BlockPos targetPos = pos.add(x, y, z);
+                        if (xp + yp + zp < (Math.pow((size - 1), 2))) {
+                            addPosIfValid(targetPos, insidePos);
+                        } else {
+                            addPosIfValid(targetPos, outsidePos);
+                        }
                     }
                 }
             }
@@ -99,6 +112,9 @@ public class CreatorTile extends TileEntity implements ITickableTileEntity{
     public BlockState getFoam() {
         return BASIC_FOAM.get().getDefaultState();
     }
+    public BlockState getFoam2() {
+        return DISOLVABLE_BASIC_FOAM.get().getDefaultState();
+    }
 
     public int getSize(Item item) {
         int size = 0;
@@ -111,11 +127,18 @@ public class CreatorTile extends TileEntity implements ITickableTileEntity{
     public void addPosIfValid(BlockPos pos, List<BlockPos> list) {
         BlockState state = world.getBlockState(pos);
         boolean isNotCreator = !state.equals(this.getBlockState());
-        if(this.getTag().equals(ACID) && isNotCreator){
-            list.add(pos);
-        }
-        if (state.isIn(getTag()) && isNotCreator) {
-            list.add(pos);
+        if(!insidePos.contains(pos) && isNotCreator){
+            if(this.getTag().equals(ACID)){
+                list.add(pos);
+            }
+            if(this.getTag().equals(GRAVITYDOME)){
+                if(state.isIn(getTag()) || state.isAir(world, pos)) {
+                    list.add(pos);
+                }
+            }
+            if(state.isIn(getTag())) {
+                list.add(pos);
+            }
         }
     }
 

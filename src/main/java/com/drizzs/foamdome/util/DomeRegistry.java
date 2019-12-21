@@ -37,7 +37,7 @@ import static com.drizzs.foamdome.FoamDome.MOD_ID;
 import static com.drizzs.foamdome.util.DomeGroup.DOME_GROUP;
 import static net.minecraft.block.material.Material.*;
 
-public class DomeRegistryNew {
+public class DomeRegistry {
     public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, MOD_ID);
     public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, MOD_ID);
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPE = new DeferredRegister<>(ForgeRegistries.TILE_ENTITIES, MOD_ID);
@@ -119,13 +119,6 @@ public class DomeRegistryNew {
                     .hardnessAndResistance(0)
                     .noDrops()
             ));
-    public static final RegistryObject<Block> DISOLVABLE_GRAVITY_FOAM = BLOCKS.register("disolvable_gravity_foam", () ->
-            new Foam(Block.Properties.create(SNOW)
-                    .sound(SoundType.SNOW)
-                    .tickRandomly()
-                    .hardnessAndResistance(0)
-                    .noDrops()
-            ));
     public static final RegistryObject<Block> HARD_GRAVITY_FOAM = BLOCKS.register("hard_gravity_foam", () ->
             new Foam(Block.Properties.create(SNOW)
                     .sound(SoundType.SNOW)
@@ -140,6 +133,29 @@ public class DomeRegistryNew {
                     .hardnessAndResistance(0)
                     .noDrops()
             ));
+
+    public static final RegistryObject<Block> DISOLVABLE_GRAVITY_FOAM = BLOCKS.register("disolvable_gravity_foam", () ->
+            new Foam(Block.Properties.create(SNOW)
+                    .sound(SoundType.SNOW)
+                    .tickRandomly()
+                    .hardnessAndResistance(0)
+                    .noDrops()
+            ));
+    public static final RegistryObject<Block> DISOLVABLE_BASIC_FOAM = BLOCKS.register("disolvable_basic_foam", () ->
+            new Foam(Block.Properties.create(SNOW)
+                    .sound(SoundType.SNOW)
+                    .tickRandomly()
+                    .hardnessAndResistance(0)
+                    .noDrops()
+            ));
+    public static final RegistryObject<Block> DISOLVABLE_GLASS_FOAM = BLOCKS.register("disolvable_glass_foam", () ->
+            new Foam(Block.Properties.create(SNOW)
+                    .sound(SoundType.SNOW)
+                    .tickRandomly()
+                    .hardnessAndResistance(0)
+                    .noDrops()
+            ));
+
 
     //NotFoam
     //NotFoamBlocks
