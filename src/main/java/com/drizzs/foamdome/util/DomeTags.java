@@ -13,5 +13,6 @@ public class DomeTags {
 
     public static final Tag<Block> UNDERWATER = new BlockTags.Wrapper(new ResourceLocation("foamdome:underwater"));
     public static final Tag<Block> GRAVITYDOME = new BlockTags.Wrapper(new ResourceLocation("foamdome:gravitydome"));
+    public static final Tag<Block> ACID = new BlockTags.Wrapper(new ResourceLocation("foamdome:acid"));
 
 }
