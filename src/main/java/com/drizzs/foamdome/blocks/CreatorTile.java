@@ -179,7 +179,7 @@ public class CreatorTile extends TileEntity implements ITickableTileEntity{
         super.write(compound);
         NonNullList<ItemStack> stack = NonNullList.withSize(1, ItemStack.EMPTY);
         handler.ifPresent(inventory -> {
-            stack.add(0, inventory.getStackInSlot(0));
+            stack.set(0, inventory.getStackInSlot(0));
         });
         if(!stack.isEmpty()) {
             ItemStackHelper.saveAllItems(compound, stack);
