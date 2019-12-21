@@ -18,28 +18,24 @@ import static com.drizzs.foamdome.util.DomeRegistryNew.*;
 
 public class Foam extends Block {
 
+
     public Foam(Properties properties) {
         super(properties);
     }
 
     @Override
     public void tick(BlockState state, World world, BlockPos pos, Random random) {
-        if (this.getBlock().equals(BASIC_FOAM.get()) || this.getBlock().equals(GLASS_FOAM.get())) {
-            waterFoamDissipation(world, pos, random);
-        } else if (this.getBlock().equals(ACID_FOAM.get())) {
-            acidFoamDissipation(world, pos, random);
-        } else if (this.getBlock().equals(GLASS_FOAM.get())) {
-            waterFoamDissipation(world, pos, random);
-        } else if (this.getBlock().equals(HARD_GRAVITY_FOAM.get())) {
-            hardGravityFoamDissipation(world, pos, random);
-        } else if (this.getBlock().equals(DISOLVABLE_GRAVITY_FOAM.get())) {
-            gravityFoamDissipation(world, pos, random);
-        }
-    }
-
-    @Override
-    public int tickRate(IWorldReader worldIn) {
-        return 500;
+            if (this.getBlock().equals(BASIC_FOAM.get()) || this.getBlock().equals(GLASS_FOAM.get())) {
+                waterFoamDissipation(world, pos, random);
+            } else if (this.getBlock().equals(ACID_FOAM.get())) {
+                acidFoamDissipation(world, pos, random);
+            } else if (this.getBlock().equals(GLASS_FOAM.get())) {
+                waterFoamDissipation(world, pos, random);
+            } else if (this.getBlock().equals(HARD_GRAVITY_FOAM.get())) {
+                hardGravityFoamDissipation(world, pos, random);
+            } else if (this.getBlock().equals(DISOLVABLE_GRAVITY_FOAM.get())) {
+                gravityFoamDissipation(world, pos, random);
+            }
     }
 
     private void waterFoamDissipation(World world, BlockPos pos, Random random) {
@@ -63,23 +59,16 @@ public class Foam extends Block {
     }
 
     private void acidFoamDissipation(World world, BlockPos pos, Random random) {
-        int i = random.nextInt(1);
-        if (i == 0) {
             world.destroyBlock(pos, false);
-        }
+
     }
 
     private void hardGravityFoamDissipation(World world, BlockPos pos, Random random) {
-        int i = random.nextInt(1);
-        if (i == 0) {
             world.setBlockState(pos, Blocks.GLASS.getDefaultState());
-        }
+
     }
 
     private void gravityFoamDissipation(World world, BlockPos pos, Random random) {
-        int i = random.nextInt(1);
-        if (i == 0) {
             world.destroyBlock(pos, false);
-        }
     }
 }

@@ -43,9 +43,6 @@ public class GravityTunnelCreatorTile extends CreatorTile {
                     if (!this.noPos) {
                         insideFoam(direction, size);
                         possibleTargets(direction, size);
-                        int checker1 = insidePos.size();
-                        int checker2 = outsidePos.size();
-                        FoamDome.LOGGER.info("attained this many of each pos type" + checker1 + " " +checker2);
                         noPos = true;
                     }
                     if (!insidePos.isEmpty()) {

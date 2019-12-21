@@ -34,15 +34,11 @@ public class GravityDomeCreatorTile extends CreatorTile {
     @Override
     public void foamMovieMagic() {
         if (activated) {
-            FoamDome.LOGGER.info("activated");
             ItemStack item = FoamVariables.item;
-            FoamDome.LOGGER.info("info");
             if (!item.isEmpty()) {
                 int size = getSize(item.getItem());
-                FoamDome.LOGGER.info(noPos);
                 if (!noPos) {
                     possibleTargets(direction, size);
-                    FoamDome.LOGGER.info("this many inside positions" + insidePos.size() + "and this many outside positions" + outsidePos.size());
                     noPos = true;
                 }
                 if (!insidePos.isEmpty()) {
