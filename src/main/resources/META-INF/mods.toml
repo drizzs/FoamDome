@@ -9,7 +9,7 @@ issueTrackerURL="http://my.issue.tracker/"
 
 modId="foamdome"
 
-version="${1.0.0}"
+version="${1.1.0}"
 
 displayName="Foam Dome"
 

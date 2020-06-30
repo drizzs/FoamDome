@@ -2,6 +2,7 @@ package com.drizzs.foamdome.blocks.tunnelcreators.tile;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 
 import static com.drizzs.foamdome.util.DomeRegistry.*;
@@ -14,7 +15,7 @@ public class GravityTunnelCreatorTile extends TunnelCreatorTile {
     }
 
     @Override
-    public Tag<Block> getTag() {
+    public ITag.INamedTag<Block> getTag() {
         return GRAVITYDOME;
     }
 

@@ -3,6 +3,7 @@ package com.drizzs.foamdome.blocks.domecreators.tile;
 import com.drizzs.foamdome.blocks.CreatorTile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 
 import static com.drizzs.foamdome.util.DomeRegistry.ACID_DOME_TILE;
@@ -26,7 +27,7 @@ public class AcidDomeCreatorTile extends CreatorTile {
     }
 
     @Override
-    public Tag<Block> getTag() {
+    public ITag.INamedTag<Block> getTag() {
         return ACID;
     }
 

@@ -25,27 +25,28 @@ public class CreatorBlock extends Block {
         super(properties);
     }
 
+
     @Override
     @Deprecated
-    public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
         Direction direction = trace.getFace();
         TileEntity entity = world.getTileEntity(pos);
-        if (!player.func_225608_bj_()) {
-            if (entity instanceof CreatorTile) {
-                ((CreatorTile) entity).extractInsertItemMethod(player, hand);
-            }
-        } else {
-            if (entity instanceof CreatorTile) {
-                if(entity instanceof GravityDomeCreatorTile){
-                    ((CreatorTile) entity).handler.ifPresent(inventory -> {
-                        FoamVariables.item = inventory.getStackInSlot(0);
-                    });
+        if (entity instanceof CreatorTile) {
+            CreatorTile tile = (CreatorTile) entity;
+            if (!player.isCrouching()) {
+                if(!world.isRemote) {
+                    tile.extractInsertItemMethod(player, player.getActiveHand());
+                    return ActionResultType.SUCCESS;
+                }
+            } else {
+                if (entity instanceof GravityDomeCreatorTile) {
+                        FoamVariables.item = tile.getItemInSlot(0);
                     if (!FoamVariables.item.isEmpty()) {
                         checkFallable(world, pos);
                     }
-                }else {
-                    ((CreatorTile) entity).direction = direction;
-                    ((CreatorTile) entity).activated = true;
+                } else {
+                    tile.direction = direction;
+                    tile.activated = true;
                 }
             }
         }
@@ -57,7 +58,7 @@ public class CreatorBlock extends Block {
         TileEntity entity = world.getTileEntity(pos);
         if (entity instanceof CreatorTile) {
             ((CreatorTile) entity).handler.ifPresent(inventory -> {
-                ItemStack stack = inventory.extractItem(0,1,false);
+                ItemStack stack = inventory.extractItem(0, 1, false);
                 world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), stack));
             });
         }

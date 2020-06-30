@@ -5,6 +5,7 @@ import com.drizzs.foamdome.util.FoamVariables;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.math.BlockPos;
 
@@ -18,7 +19,7 @@ public class GravityDomeCreatorTile extends CreatorTile {
     }
 
     @Override
-    public Tag<Block> getTag() {
+    public ITag.INamedTag<Block> getTag() {
         return GRAVITYDOME;
     }
 
