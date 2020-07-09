@@ -47,7 +47,7 @@ public class GravityEntity extends FallingBlockEntity {
         TileEntity entityTile = world.getTileEntity(pos);
         if (entityTile instanceof CreatorTile) {
             ((CreatorTile) entityTile).activated = true;
-            ((CreatorTile) entityTile).handler.ifPresent(inventory ->{
+            ((CreatorTile) entityTile).getHandler().ifPresent(inventory ->{
                 inventory.insertItem(0, FoamVariables.item, true);
             });
         }

@@ -21,7 +21,7 @@ public class Foam extends Block {
 
     @Override
     @Deprecated
-    public void func_225542_b_(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         Block block = this.getBlock();
         if (block.equals(HARD_GRAVITY_FOAM.get()) || block.equals(GLASS_FOAM.get())) {
             hardFoamTransformation(world, pos, Blocks.GLASS);
