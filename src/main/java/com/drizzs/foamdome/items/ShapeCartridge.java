@@ -10,23 +10,24 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Locale;
 
-public class FoamCartridge extends Item {
+public class ShapeCartridge extends Item {
 
-    private final int domeSize;
+    private final String shape;
 
-    public FoamCartridge(Properties properties, int domeSize) {
+    public ShapeCartridge(Properties properties, String shape) {
         super(properties);
-        this.domeSize = domeSize;
+        this.shape = shape;
     }
 
-    public int getDomeSize() {
-        return domeSize;
+    public String getShape() {
+        return shape;
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack item, @org.jetbrains.annotations.Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TranslatableComponent("Creates a dome of radius " + domeSize + " or a Tunnel with a length of " + (domeSize+4) +" blocks" ).withStyle(ChatFormatting.LIGHT_PURPLE));
+        tooltip.add(new TranslatableComponent("Cartridge for Foam Creator of shape: " + shape.toUpperCase(Locale.ROOT)).withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 
 }

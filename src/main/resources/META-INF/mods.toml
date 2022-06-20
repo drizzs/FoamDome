@@ -5,6 +5,8 @@ loaderVersion="[28,)"
 
 issueTrackerURL="http://my.issue.tracker/"
 
+license="MIT"
+
 [[mods]]
 
 modId="foamdome"

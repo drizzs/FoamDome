@@ -1,13 +1,15 @@
 package com.drizzs.foamdome.items;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -24,25 +26,19 @@ public class DomeItems extends BlockItem {
         this.block = block;
     }
 
+
+
     //Adds Tooltips
     @Override
-    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
         if (this.block.equals(BASIC_DOME_CREATOR.get())) {
-            tooltip.add(new TranslationTextComponent("Creates Underwater Obsidian Domes", 2).applyTextStyle(TextFormatting.LIGHT_PURPLE));
-        } else if (this.block.equals(BASIC_TUNNEL_CREATOR.get())) {
-            tooltip.add(new TranslationTextComponent("Creates Underwater Obsidian Tunnels", 2).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+            tooltip.add(new TranslatableComponent("Creates Underwater Obsidian Domes").withStyle(ChatFormatting.LIGHT_PURPLE));
         } else if (this.block.equals(GLASS_DOME_CREATOR.get())) {
-            tooltip.add(new TranslationTextComponent("Creates Underwater Glass Domes", 2).applyTextStyle(TextFormatting.LIGHT_PURPLE));
-        } else if (this.block.equals(GLASS_TUNNEL_CREATOR.get())) {
-            tooltip.add(new TranslationTextComponent("Creates Underwater Glass Tunnels", 2).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+            tooltip.add(new TranslatableComponent("Creates Underwater Glass Domes").withStyle(ChatFormatting.LIGHT_PURPLE));
         } else if (this.block.equals(GRAVITY_DOME_CREATOR.get())) {
-            tooltip.add(new TranslationTextComponent("Creates Glass Domes in the Multiple Scenarios, Affected by Gravity on Activated", 2).applyTextStyle(TextFormatting.LIGHT_PURPLE));
-        }else if (this.block.equals(GRAVITY_TUNNEL_CREATOR.get())) {
-            tooltip.add(new TranslationTextComponent("Creates Glass Tunnels in Multiple Scenarios", 1).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+            tooltip.add(new TranslatableComponent("Creates Glass Domes in the Multiple Scenarios, Affected by Gravity on Activated").withStyle(ChatFormatting.LIGHT_PURPLE));
         }else if (this.block.equals(ACID_DOME_CREATOR.get())) {
-            tooltip.add(new TranslationTextComponent("Eats Away at the Solid Objects in an Area to Create a Dome", 1).applyTextStyle(TextFormatting.LIGHT_PURPLE));
-        }else if (this.block.equals(ACID_TUNNEL_CREATOR.get())) {
-            tooltip.add(new TranslationTextComponent("Eats Away at the Solid Objects in an Area to Create a Tunnel", 1).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+            tooltip.add(new TranslatableComponent("Eats Away at the Solid Objects in an Area to Create a Dome").withStyle(ChatFormatting.LIGHT_PURPLE));
         }
     }
 }

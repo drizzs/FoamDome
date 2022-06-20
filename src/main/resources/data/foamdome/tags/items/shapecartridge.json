@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "foamdome:cube_cartridge",
+    "foamdome:tunnel_cartridge",
+    "foamdome:dome_cartridge",
+    "foamdome:half_dome_cartridge",
+    "foamdome:pyramid_cartridge"
+  ]
+}

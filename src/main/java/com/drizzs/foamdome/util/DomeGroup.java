@@ -1,14 +1,13 @@
 package com.drizzs.foamdome.util;
 
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-import static com.drizzs.foamdome.util.DomeRegistry.FOAM_ICON;
-
-public class DomeGroup extends ItemGroup
+public class DomeGroup extends CreativeModeTab
 {
 
-    public static final DomeGroup DOME_GROUP = new DomeGroup(ItemGroup.GROUPS.length, "foamdome");
+    public static final DomeGroup DOME_GROUP = new DomeGroup(CreativeModeTab.getGroupCountSafe(), "foamdome");
 
     private DomeGroup(int index, String label)
     {
@@ -16,9 +15,8 @@ public class DomeGroup extends ItemGroup
     }
 
     @Override
-    public ItemStack createIcon()
-    {
-        return new ItemStack(FOAM_ICON.get());
+    public @NotNull ItemStack makeIcon() {
+        return new ItemStack(DomeRegistry.FOAM_ICON.get());
     }
 
 }

@@ -1,8 +1,8 @@
 {
-  "block.foamdome.basic_dome_creator": "Obsidian Foam Dome Mechanism",
-  "block.foamdome.glass_dome_creator": "Glass Foam Dome Mechanism",
-  "block.foamdome.gravity_dome_creator": "Gravity Foam Dome Mechanism",
-  "block.foamdome.acid_dome_creator": "Acid Foam Dome Mechanism",
+  "block.foamdome.basic_dome_creator": "Obsidian Foam Generation Mechanism",
+  "block.foamdome.glass_dome_creator": "Glass Foam Generation Mechanism",
+  "block.foamdome.gravity_dome_creator": "Gravity Foam Generation Mechanism",
+  "block.foamdome.acid_dome_creator": "Acid Foam Generation Mechanism",
 
   "block.foamdome.basic_foam": "Foam",
   "block.foamdome.acid_foam": "Acid Foam",
@@ -12,10 +12,9 @@
   "block.foamdome.disolvable_basic_foam": "Foam",
   "block.foamdome.hard_gravity_foam": "Gravity Foam",
 
-  "block.foamdome.basic_tunnel_creator": "Obsidian Foam Tunnel Mechanism",
-  "block.foamdome.glass_tunnel_creator": "Glass Foam Tunnel Mechanism",
-  "block.foamdome.gravity_tunnel_creator": "Gravity Foam Tunnel Mechanism",
-  "block.foamdome.acid_tunnel_creator": "Acid Foam Tunnel Mechanism",
+  "block.foamdome.hard_sky_foam": "Sky Foam",
+  "block.foamdome.glass_sky_foam": "Glass Sky Foam",
+  "block.foamdome.disolvable_sky_foam": "Sky Foam",
 
   "block.foamdome.not_foam": "Instant Obsidian",
 
@@ -25,6 +24,19 @@
   "item.foamdome.foam_cartridge_size_5": "Silica Foam Cartridge",
   "item.foamdome.foam_cartridge_size_6": "Silica Foam Cartridge",
   "item.foamdome.foam_cartridge_size_7": "Silica Foam Cartridge",
+
+  "item.foamdome.dome_cartridge": "Dome Shape Cartridge",
+  "item.foamdome.half_dome_cartridge": "Half Dome Shape Cartridge",
+  "item.foamdome.tunnel_cartridge": "Tunnel Shape Cartridge",
+  "item.foamdome.pyramid_cartridge": "Pyramid Shape Cartridge",
+  "item.foamdome.cube_cartridge": "Cube Shape Cartridge",
+
+  "container.foamdome.acid_foam_container": "Acid Foam Creator",
+  "container.foamdome.basic_foam_container": "Basic Foam Creator",
+  "container.foamdome.glass_foam_container": "Glass Foam Creator",
+  "container.foamdome.gravity_foam_container": "Gravity Foam Creator",
+  "container.foamdome.sky_foam_container": "Sky Foam Creator",
+  "container.foamdome.glass_sky_foam_container": "Glass Sky Foam Creator",
 
   "itemGroup.foamdome": "Foam Dome"
 }

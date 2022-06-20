@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_column",
-  "textures": {
-    "end": "foamdome:blocks/basic_tunnel_creator_top",
-    "side": "foamdome:blocks/basic_tunnel_creator_side"
-  }
-}

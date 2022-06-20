@@ -16,9 +16,12 @@ public class FoamDome
 {
     public static final String MOD_ID = "foamdome";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+
     public FoamDome() {
-        MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         DomeRegistry.register(bus);
+        MinecraftForge.EVENT_BUS.register(this);
     }
+
+
 }
