@@ -3,6 +3,8 @@
   "block.foamdome.glass_dome_creator": "Glass Foam Generation Mechanism",
   "block.foamdome.gravity_dome_creator": "Gravity Foam Generation Mechanism",
   "block.foamdome.acid_dome_creator": "Acid Foam Generation Mechanism",
+  "block.foamdome.sky_dome_creator": "Sky Foam Generation Mechanism",
+  "block.foamdome.glass_sky_dome_creator": "Glass Sky Foam Generation Mechanism",
 
   "block.foamdome.basic_foam": "Foam",
   "block.foamdome.acid_foam": "Acid Foam",
@@ -12,7 +14,7 @@
   "block.foamdome.disolvable_basic_foam": "Foam",
   "block.foamdome.hard_gravity_foam": "Gravity Foam",
 
-  "block.foamdome.hard_sky_foam": "Sky Foam",
+  "block.foamdome.sky_foam": "Sky Foam",
   "block.foamdome.glass_sky_foam": "Glass Sky Foam",
   "block.foamdome.disolvable_sky_foam": "Sky Foam",
 

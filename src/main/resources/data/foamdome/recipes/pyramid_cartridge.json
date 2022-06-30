@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "R#R",
+    "#R#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:cobblestone"
+    },
+    "R": {
+      "item": "minecraft:iron_ingot"
+    },
+    "E": {
+      "item": "minecraft:slime_ball"
+    }
+  },
+  "result": {
+    "item": "foamdome:pyramid_cartridge"
+  }
+}

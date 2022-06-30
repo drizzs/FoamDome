@@ -82,7 +82,7 @@ public class FoamContainer extends AbstractContainerMenu {
     }
 
     public static MenuConstructor getServerContainer(CreatorEntity entity, BlockPos pos){
-        return (id,playerInventory, player) -> new FoamContainer(id,playerInventory,entity.getHandler().orElse(entity.createHandler()),pos);
+        return (id,playerInventory, player) -> new FoamContainer(id,playerInventory, entity.inventory, pos);
     }
 
 }

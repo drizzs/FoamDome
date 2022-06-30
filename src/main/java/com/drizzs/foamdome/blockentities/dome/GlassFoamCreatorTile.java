@@ -6,9 +6,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import static com.drizzs.foamdome.util.DomeRegistry.*;
 
-public class GlassDomeCreatorTile extends CreatorEntity {
+public class GlassFoamCreatorTile extends CreatorEntity {
 
-    public GlassDomeCreatorTile(BlockPos pos, BlockState state) {
+    public GlassFoamCreatorTile(BlockPos pos, BlockState state) {
         super(GLASS_DOME_TILE.get(),pos,state);
     }
 

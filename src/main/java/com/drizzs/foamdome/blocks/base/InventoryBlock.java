@@ -2,7 +2,7 @@ package com.drizzs.foamdome.blocks.base;
 
 import com.drizzs.foamdome.FoamDome;
 import com.drizzs.foamdome.blockentities.base.CreatorEntity;
-import com.drizzs.foamdome.blockentities.GravityEntity;
+import com.drizzs.foamdome.entities.GravityEntity;
 import com.drizzs.foamdome.common.containers.base.FoamContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -82,7 +82,7 @@ public abstract class InventoryBlock  extends Block implements EntityBlock, Fall
         if(entity instanceof CreatorEntity tile){
             tile.getHandler().ifPresent(inventory -> {
                 sizeItem = inventory.extractItem(0,1,false);
-                shapeItem = inventory.extractItem(0,1,false);
+                shapeItem = inventory.extractItem(1,1,false);
                 if(!sizeItem.isEmpty()) {
                     level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, sizeItem));
                 }
@@ -92,21 +92,6 @@ public abstract class InventoryBlock  extends Block implements EntityBlock, Fall
             });
         }
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
-    }
-
-    private void checkFallable(Level worldIn, BlockPos pos) {
-        if (isFree(worldIn.getBlockState(pos.below())) && pos.getY() >= worldIn.getMinBuildHeight()) {
-            FallingBlockEntity fallingblockentity = new GravityEntity(EntityType.FALLING_BLOCK,worldIn);
-            fallingblockentity.setPos((double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D);
-            if (!worldIn.isClientSide) {
-                worldIn.addFreshEntity(fallingblockentity);
-            }
-        }
-    }
-
-    public static boolean isFree(BlockState state) {
-        Material material = state.getMaterial();
-        return state.isAir() || state.is(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
     }
 
 }

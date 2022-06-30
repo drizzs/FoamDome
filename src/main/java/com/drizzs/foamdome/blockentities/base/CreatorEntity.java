@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +25,13 @@ public class CreatorEntity extends InventoryEntity {
     public java.util.List<BlockPos> insidePos = new ArrayList<>();
     public boolean activated = false;
     public boolean foamStart = false;
-    public Direction direction = Direction.WEST;
+    public Direction direction;
     protected int size = 0;
     protected String shape = "";
 
     public CreatorEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, 2,1, pos, state);
+        this.direction = Direction.WEST;
     }
 
     public int getSize(Item item) {
@@ -49,27 +51,25 @@ public class CreatorEntity extends InventoryEntity {
     }
 
     public void foamMovieMagic() {
-        if(requiresUpdate){
-            requiresUpdate = false;
-            updateEntity();
-        }
-        if(activated){
+        tick();
+        if(foamStart){
             if (outsidePos.isEmpty() && insidePos.isEmpty() && !shape.isEmpty() && size > 0) {
                 getShapePos();
             }
             if (!insidePos.isEmpty()) {
                 BlockPos pos = insidePos.get(0);
                 assert level != null;
-                level.setBlock(pos, getFoam2(),1);
+                level.setBlock(pos, getFoam2(),2);
                 insidePos.remove(0);
             }
             if (!outsidePos.isEmpty()) {
                 BlockPos pos = outsidePos.get(0);
                 assert level != null;
-                level.setBlock(pos, getFoam(),1);
+                level.setBlock(pos, getFoam(),2);
                 outsidePos.remove(0);
             }
             if(outsidePos.isEmpty() && insidePos.isEmpty()){
+                foamStart = false;
                 activated = false;
             }
         }
@@ -127,10 +127,19 @@ public class CreatorEntity extends InventoryEntity {
                     if(!item.isEmpty() && !item2.isEmpty()){
                         shape = getShape(item2.getItem());
                         size = getSize(item.getItem());
+                        inventory.extractItem(0,1,false);
                         FoamStart();
                     }
             });
         }
+    }
+
+    public void setShape(String shape) {
+        this.shape = shape;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     protected void getShapePos(){
@@ -226,146 +235,162 @@ public class CreatorEntity extends InventoryEntity {
     protected void getTunnelBlockPos(){
         int newSize = (size+3);
 
+        int y0 = 0,y1,x0 = 0,x1 = 0,z0 = 0,z1 = 0,yX,yX2,x7,x8,x9,x10;
+
+        y1 = 3;
+        yX = 3;
+        x7 = -1;
+        x8 = 1;
+
         if (direction == Direction.SOUTH) {
-            for (int y = 0; y < 3; ++y) {
-                for (int x = -1; x <= 1; ++x) {
-                    for (int z = -newSize; z < 0; ++z) {
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        addPosIfValid(targetPos, insidePos);
-                    }
-                }
-            }
+            x0 = -1;
+            x1 = 1;
+            z0 = -newSize;
         } else if (direction == Direction.NORTH) {
-            for (int y = 0; y < 3; ++y) {
-                for (int x = -1; x <= 1; ++x) {
-                    for (int z = 1; z < newSize; ++z) {
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        addPosIfValid(targetPos, insidePos);
-                    }
-                }
-            }
+            x0 = -1;
+            x1 = 1;
+            z1 = newSize;
         } else if (direction == Direction.EAST) {
-            for (int y = 0; y < 3; ++y) {
-                for (int x = -1; x <= 1; ++x) {
-                    for (int z = -newSize; z < 0; ++z) {
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        addPosIfValid(targetPos, insidePos);
-                    }
-                }
-            }
+            x0 = -1;
+            x1 = 1;
+            z0 = -newSize;
         } else if (direction == Direction.WEST) {
-            for (int y = 0; y < 3; ++y) {
-                for (int x = -1; x <= 1; ++x) {
-                    for (int z = 1; z < newSize; ++z) {
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        addPosIfValid(targetPos, insidePos);
-                    }
-                }
-            }
+            x0 = -1;
+            x1 = 1;
+            z1 = newSize;
         } else if (direction == Direction.DOWN) {
-            for (int y = 1; y < newSize; ++y) {
-                for (int x = -1; x <= 1; ++x) {
-                    for (int z = -1; z <= 1; ++z) {
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        addPosIfValid(targetPos, insidePos);
-                    }
-                }
-            }
+            y0 = 1;
+            y1 = newSize;
+            z0 = -1;
+            z1 = 1;
+            x0 = -1;
+            x1 = 1;
+
+            yX = 30;
+            x7 = 50;
+            x8 = 50;
         } else if (direction == Direction.UP) {
-            for (int y = -newSize; y < 1; ++y) {
-                for (int x = -1; x <= 1; ++x) {
-                    for (int z = -1; z <= 1; ++z) {
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        addPosIfValid(targetPos, insidePos);
+            y0 = -newSize;
+            y1 = 1;
+            z0 = -1;
+            z1 = 1;
+            x0 = -1;
+            x1 = 1;
+
+            yX = 30;
+            x7 = 50;
+            x8 = 50;
+        }
+
+        for (int y = y0; y <= y1; ++y) {
+            for (int x = x0; x <= x1; ++x) {
+                for (int z = z0; z <= z1; ++z) {
+                    if (y == yX ) {
+
+                            if (x == x7 || x == x8) {
+                              break;
+                            }
+
                     }
+                    BlockPos targetPos;
+                    if(direction == Direction.EAST || direction == Direction.WEST) {
+                        targetPos = getBlockPos().offset(z, y, x);
+                    }else{
+                        targetPos = getBlockPos().offset(x, y, z);
+                    }
+                    addPosIfValid(targetPos, insidePos);
                 }
             }
         }
 
         newSize = (size+4);
+
+        y0 = -1;
+        y1 = 4;
+
+        yX = 3;
+        x7 = -2;
+        x8 = 2;
+        yX2 = 4;
+        x9 = -1;
+        x10 = 1;
+
         if (direction == Direction.SOUTH) {
-            for (int y = -1; y < 4; ++y) {
-                for (int x = -2; x <= 2; ++x) {
-                    for (int z = -newSize; z < 1; ++z) {
-                        if (y == 3) {
-                            if (x == -2 || x == 2) {
-                                break;
-                            }
-                        }
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        if(!insidePos.contains(targetPos)) {
-                            addPosIfValid(targetPos, outsidePos);
-                        }
-                    }
-                }
-            }
+            x0 = -2;
+            x1 = 2;
+            z0 = -newSize;
+            z1 = 0;
+
         } else if (direction == Direction.NORTH) {
-            for (int y = -1; y < 4; ++y) {
-                for (int x = -2; x <= 2; ++x) {
-                    for (int z = 0; z < newSize; ++z) {
-                        if (y == 3) {
-                            if (x == -2 || x == 2) {
-                                break;
-                            }
-                        }
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        if(!insidePos.contains(targetPos)) {
-                            addPosIfValid(targetPos, outsidePos);
-                        }
-                    }
-                }
-            }
+            x0 = -2;
+            x1 = 2;
+            z0 = 0;
+            z1 = newSize;
+
         } else if (direction == Direction.EAST) {
-            for (int y = -1; y < 4; ++y) {
-                for (int x = -2; x <= 2; ++x) {
-                    for (int z = -newSize; z < 1; ++z) {
-                        if (y == 3) {
-                            if (x == -2 || x == 2) {
-                                break;
-                            }
-                        }
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        if(!insidePos.contains(targetPos)) {
-                            addPosIfValid(targetPos, outsidePos);
-                        }
-                    }
-                }
-            }
+            x0 = -2;
+            x1 = 2;
+            z0 = -newSize;
+            z1 = 0;
+
         } else if (direction == Direction.WEST) {
-            for (int y = -1; y < 4; ++y) {
-                for (int x = -2; x <= 2; ++x) {
-                    for (int z = 0; z < newSize; ++z) {
-                        if (y == 3) {
-                            if (x == -2 || x == 2) {
+            x0 = -2;
+            x1 = 2;
+            z0 = 0;
+            z1 = newSize;
+
+        } else if (direction == Direction.DOWN) {
+            y0 = 0;
+            y1 = newSize;
+            z0 = -2;
+            z1 = 2;
+            x0 = -2;
+            x1 = 2;
+
+            yX = 30;
+            x7 = 55;
+            x8 = 60;
+            yX2 = 30;
+            x9 = 30;
+            x10 = 30;
+        } else if (direction == Direction.UP) {
+            y0 = -newSize;
+            y1 = 0;
+            z0 = -2;
+            z1 = 2;
+            x0 = -2;
+            x1 = 2;
+
+            yX = 30;
+            x7 = 55;
+            x8 = 60;
+            yX2 = 30;
+            x9 = 30;
+            x10 = 30;
+        }
+
+        for (int y = y0; y <= y1; ++y) {
+            for (int x = x0; x <= x1; ++x) {
+                for (int z = z0; z <= z1; ++z) {
+                    if (y == yX || y == yX2) {
+                            if (x == x7 || x == x8) {
                                 break;
                             }
-                        }
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        if(!insidePos.contains(targetPos)) {
-                            addPosIfValid(targetPos, outsidePos);
-                        }
+                            if(yX2 == y){
+                                if (x == x9 || x == x10) {
+                                    break;
+                                }
+                            }
+
                     }
-                }
-            }
-        } else if (direction == Direction.DOWN) {
-            for (int y = 0; y < newSize; ++y) {
-                for (int x = -2; x <= 2; ++x) {
-                    for (int z = -2; z <= 2; ++z) {
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        if(!insidePos.contains(targetPos)) {
-                            addPosIfValid(targetPos, outsidePos);
-                        }
+                    BlockPos targetPos;
+                    if(direction == Direction.EAST || direction == Direction.WEST) {
+                        targetPos = getBlockPos().offset(z, y, x);
+                    }else{
+                        targetPos = getBlockPos().offset(x, y, z);
                     }
-                }
-            }
-        } else if (direction == Direction.UP) {
-            for (int y = 0; y > -newSize; --y) {
-                for (int x = -2; x <= 2; ++x) {
-                    for (int z = -2; z <= 2; ++z) {
-                        BlockPos targetPos = getBlockPos().offset(x, y, z);
-                        if(!insidePos.contains(targetPos)) {
-                            addPosIfValid(targetPos, outsidePos);
-                        }
+                    if(!insidePos.contains(targetPos)) {
+                        addPosIfValid(targetPos, outsidePos);
                     }
                 }
             }
@@ -373,28 +398,28 @@ public class CreatorEntity extends InventoryEntity {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag tag = super.serializeNBT();
+    protected void saveAdditional(@NotNull CompoundTag tag) {
+        super.saveAdditional(tag);
         tag.putBoolean("activated",activated);
         tag.putBoolean("foamStart",foamStart);
-        tag.putString("direction", direction.getName());
+        if(tag.contains("direction")) {
+            tag.putString("direction", direction.getName());
+        }
 
         tag.putInt("size",size);
         tag.putString("shape",shape);
-
-        return tag;
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        super.deserializeNBT(nbt);
+    public void load(@NotNull CompoundTag nbt) {
+        super.load(nbt);
 
         activated = nbt.getBoolean("activated");
         activated = nbt.getBoolean("foamStart");
-        direction = Direction.byName(nbt.getString("direction"));
+        if(direction != null) {
+            direction = Direction.byName(nbt.getString("direction"));
+        }
         size = nbt.getInt("size");
         shape = nbt.getString("shape");
     }
-
-
 }

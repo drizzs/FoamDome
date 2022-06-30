@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EEE",
+    "ERE",
+    "EEE"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "E": {
+      "item": "minecraft:iron_bar"
+    }
+  },
+  "result": {
+    "item": "foamdome:cube_cartridge"
+  }
+}

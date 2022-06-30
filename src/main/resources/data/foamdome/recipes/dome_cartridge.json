@@ -1,22 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "LLL",
-    "# #",
-    "#G#"
+    "#E#",
+    "ERE",
+    "#E#"
   ],
   "key": {
     "#": {
       "item": "minecraft:cobblestone"
     },
-    "G": {
-      "item": "minecraft:slime_ball"
+    "R": {
+      "item": "minecraft:redstone"
     },
-    "L": {
-      "tag": "minecraft:logs"
+    "E": {
+      "item": "minecraft:iron_ingot"
     }
   },
   "result": {
-    "item": "foamdome:basic_tunnel_creator"
+    "item": "foamdome:dome_cartridge"
   }
 }

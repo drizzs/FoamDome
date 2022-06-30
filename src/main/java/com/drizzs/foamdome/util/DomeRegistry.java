@@ -1,13 +1,19 @@
 package com.drizzs.foamdome.util;
 
+import com.drizzs.foamdome.FoamDome;
 import com.drizzs.foamdome.blockentities.Foam;
 import com.drizzs.foamdome.blockentities.dome.*;
 import com.drizzs.foamdome.blocks.dome.*;
 import com.drizzs.foamdome.common.containers.base.FoamContainer;
+import com.drizzs.foamdome.entities.AntiGravityEntity;
 import com.drizzs.foamdome.items.DomeItems;
 import com.drizzs.foamdome.items.FoamCartridge;
 import com.drizzs.foamdome.items.ShapeCartridge;
 import com.google.common.collect.Maps;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -30,6 +36,7 @@ public class DomeRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MOD_ID);
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITIES, MOD_ID);
     public static Map<RegistryObject<Block>, String> blocklist = Maps.newHashMap();
 
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, MOD_ID);
@@ -145,20 +152,24 @@ public class DomeRegistry {
             () -> new Item((new Item.Properties())));
 
     //TileEntities
-    //DomeCreators
     public static final RegistryObject<BlockEntityType<?>> BASIC_DOME_TILE = TILE_ENTITY_TYPE.register("basic_dome_creator",
-            () -> BlockEntityType.Builder.of(BasicDomeCreatorTile::new, BASIC_DOME_CREATOR.get()).build(null));
+            () -> BlockEntityType.Builder.of(BasicFoamCreatorTile::new, BASIC_DOME_CREATOR.get()).build(null));
     public static final RegistryObject<BlockEntityType<?>> GLASS_DOME_TILE = TILE_ENTITY_TYPE.register("glass_dome_creator",
-            () -> BlockEntityType.Builder.of(GlassDomeCreatorTile::new, GLASS_DOME_CREATOR.get()).build(null));
+            () -> BlockEntityType.Builder.of(GlassFoamCreatorTile::new, GLASS_DOME_CREATOR.get()).build(null));
     public static final RegistryObject<BlockEntityType<?>> GRAVITY_DOME_TILE = TILE_ENTITY_TYPE.register("gravity_dome_creator",
-            () -> BlockEntityType.Builder.of(GravityDomeCreatorTile::new, GRAVITY_DOME_CREATOR.get()).build(null));
+            () -> BlockEntityType.Builder.of(GravityFoamCreatorTile::new, GRAVITY_DOME_CREATOR.get()).build(null));
     public static final RegistryObject<BlockEntityType<?>> ACID_DOME_TILE = TILE_ENTITY_TYPE.register("acid_dome_creator",
-            () -> BlockEntityType.Builder.of(AcidDomeCreatorTile::new, ACID_DOME_CREATOR.get()).build(null));
+            () -> BlockEntityType.Builder.of(AcidFoamCreatorTile::new, ACID_DOME_CREATOR.get()).build(null));
     public static final RegistryObject<BlockEntityType<?>> SKY_DOME_TILE = TILE_ENTITY_TYPE.register("sky_dome_creator",
-            () -> BlockEntityType.Builder.of(SkyDomeCreatorTile::new, SKY_DOME_CREATOR.get()).build(null));
+            () -> BlockEntityType.Builder.of(SkyFoamCreatorTile::new, SKY_DOME_CREATOR.get()).build(null));
     public static final RegistryObject<BlockEntityType<?>> GLASS_SKY_DOME_TILE = TILE_ENTITY_TYPE.register("glass_sky_dome_creator",
-            () -> BlockEntityType.Builder.of(GlassSkyDomeCreatorTile::new, GLASS_SKY_DOME_CREATOR.get()).build(null));
+            () -> BlockEntityType.Builder.of(GlassSkyFoamCreatorTile::new, GLASS_SKY_DOME_CREATOR.get()).build(null));
+
+    //Containers
     public static final RegistryObject<MenuType<FoamContainer>> FOAM_CONTAINER = CONTAINERS.register("foam_container", ()-> new MenuType<>(FoamContainer::new));
+    //EntityTypes
+    public static final RegistryObject<EntityType<Entity>> ANTI_GRAVITY_ENTITY = ENTITY_TYPE.register("anti_gravity_entity",
+            () -> EntityType.Builder.of(AntiGravityEntity::new, MobCategory.MISC).build("anti_gravity_entity"));
 
     public static void register(IEventBus eventBus) {
         blocklist.put(BASIC_DOME_CREATOR, "basic_dome_creator");
@@ -177,5 +188,6 @@ public class DomeRegistry {
         BLOCKS.register(eventBus);
         TILE_ENTITY_TYPE.register(eventBus);
         CONTAINERS.register(eventBus);
+        ENTITY_TYPE.register(eventBus);
     }
 }

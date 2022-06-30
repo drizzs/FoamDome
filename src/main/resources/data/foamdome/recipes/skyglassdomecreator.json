@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "#E#",
+    "#G#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:gold_ingot"
+    },
+    "G": {
+      "item": "minecraft:slime_ball"
+    },
+    "E": {
+      "item": "minecraft:redstone"
+    },
+    "L": {
+      "tag": "minecraft:leaves"
+    }
+  },
+  "result": {
+    "item": "foamdome:glass_sky_dome_creator"
+  }
+}

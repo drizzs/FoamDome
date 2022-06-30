@@ -24,7 +24,7 @@ public class Foam extends Block {
         Block block = this.asBlock();
         if (block.equals(HARD_GRAVITY_FOAM.get()) || block.equals(GLASS_FOAM.get()) || block.equals(GLASS_SKY_FOAM.get())) {
             hardFoamTransformation(world, pos, Blocks.GLASS);
-        } else if (block.equals(BASIC_FOAM.get())) {
+        } else if (block.equals(BASIC_FOAM.get()) || block.equals(HARD_SKY_FOAM.get())) {
             hardFoamTransformation(world, pos, NOT_FOAM.get());
         }else {
             foamDeath(world, pos);
@@ -36,6 +36,6 @@ public class Foam extends Block {
     }
 
     private void hardFoamTransformation(ServerLevel world, BlockPos pos, Block state) {
-        world.setBlock(pos, state.defaultBlockState(),1);
+        world.setBlock(pos, state.defaultBlockState(),2);
     }
 }

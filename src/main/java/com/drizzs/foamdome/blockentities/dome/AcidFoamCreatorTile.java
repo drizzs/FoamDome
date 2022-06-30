@@ -10,9 +10,9 @@ import static com.drizzs.foamdome.util.DomeRegistry.ACID_DOME_TILE;
 import static com.drizzs.foamdome.util.DomeRegistry.ACID_FOAM;
 import static com.drizzs.foamdome.util.DomeTags.ACID;
 
-public class AcidDomeCreatorTile extends CreatorEntity {
+public class AcidFoamCreatorTile extends CreatorEntity {
 
-    public AcidDomeCreatorTile(BlockPos pos, BlockState state) {
+    public AcidFoamCreatorTile(BlockPos pos, BlockState state) {
         super(ACID_DOME_TILE.get(),pos,state);
     }
 

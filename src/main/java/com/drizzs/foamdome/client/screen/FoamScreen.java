@@ -39,8 +39,8 @@ public class FoamScreen extends AbstractContainerScreen<FoamContainer> {
     @Override
     public void render(@NotNull PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         super.render(stack, mouseX, mouseY, partialTicks);
-        this.font.draw(stack, this.title, this.leftPos + titleDistance, this.topPos + 5, 0x404040);
-        this.font.draw(stack, this.playerInventoryTitle, this.leftPos + 8, this.topPos + 75, 0x404040);
+    //    this.font.draw(stack, this.title, this.leftPos + titleDistance, this.topPos + 5, 0x404040);
+      //  this.font.draw(stack, this.playerInventoryTitle, this.leftPos + 8, this.topPos + 75, 0x404040);
     }
 
     @Override

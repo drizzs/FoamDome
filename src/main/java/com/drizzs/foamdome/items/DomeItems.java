@@ -38,7 +38,11 @@ public class DomeItems extends BlockItem {
         } else if (this.block.equals(GRAVITY_DOME_CREATOR.get())) {
             tooltip.add(new TranslatableComponent("Creates Glass Domes in the Multiple Scenarios, Affected by Gravity on Activated").withStyle(ChatFormatting.LIGHT_PURPLE));
         }else if (this.block.equals(ACID_DOME_CREATOR.get())) {
-            tooltip.add(new TranslatableComponent("Eats Away at the Solid Objects in an Area to Create a Dome").withStyle(ChatFormatting.LIGHT_PURPLE));
+            tooltip.add(new TranslatableComponent("Eats Away at the Solid Objects in an Area to Create a shape").withStyle(ChatFormatting.LIGHT_PURPLE));
+        }else if (this.block.equals(SKY_DOME_CREATOR.get())) {
+            tooltip.add(new TranslatableComponent("Flies up and creates an obsidian shape in the sky").withStyle(ChatFormatting.LIGHT_PURPLE));
+        }else if (this.block.equals(GLASS_SKY_DOME_CREATOR.get())) {
+            tooltip.add(new TranslatableComponent("Flies up and creates a glass shape in the sky").withStyle(ChatFormatting.LIGHT_PURPLE));
         }
     }
 }
